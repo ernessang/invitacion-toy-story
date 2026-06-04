@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tailwindcss -i ./src/css/input.css -o ./dist/output.css"
+    "build": "echo \"No build required for CDN installation\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "tailwindcss": "^4.3.0"
+    "tailwindcss": "^4.3.0",
+    "vercel": "^54.9.1"
   }
 }
