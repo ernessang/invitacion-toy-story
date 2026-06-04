@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¡Al Infinito y Más Allá! - Mi Fiesta</title>
-    <!-- Fuente estilo cómic/infantil -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-    <!-- Motor de Tailwind vía CDN (Procesa todo en tiempo real en el navegador) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Fredoka', sans-serif; }
@@ -16,14 +14,18 @@
 </head>
 <body class="bg-slate-950 min-h-screen flex items-center justify-center p-0 sm:p-4 overflow-x-hidden">
 
-    <!-- CONTENEDOR CANVAS (escenario-canvas) -->
     <div class="escenario-canvas relative w-full max-w-5xl aspect-[9/16] md:aspect-video bg-sky-400 bg-[url('src/img/fondo-nubes.jpg')] bg-cover bg-center overflow-hidden rounded-none sm:rounded-2xl shadow-2xl">
         
+        <!-- AUDIO CONTROLLER: Floating interactive button -->
+        <button id="audio-toggle" class="absolute top-4 right-4 z-30 w-12 h-12 bg-yellow-400 hover:bg-yellow-500 border-4 border-blue-600 rounded-full flex items-center justify-center text-xl shadow-lg opacity-0 transition-transform cursor-pointer animate-pulse">
+            🔇
+        </button>
+
         <!-- CAPA 1: La cumpleañera -->
         <div class="cumpleanera absolute bottom-[5%] md:bottom-[10%] left-1/2 -translate-x-1/2 w-1/2 md:w-1/4 h-1/2 md:h-3/5 bg-[url('src/img/nina.png')] bg-contain bg-no-repeat bg-bottom z-10 opacity-0"></div>
 
         <!-- CAPA 2: Tarjeta de Información Flotante -->
-        <div class="info-tarjeta absolute top-[8%] md:top-auto md:bottom-[15%] left-4 right-4 md:left-auto md:right-8 md:w-[35%] bg-white/95 border-8 border-yellow-400 rounded-2xl p-6 shadow-xl z-20 opacity-0">
+        <div class="info-tarjeta absolute top-[15%] md:top-auto md:bottom-[15%] left-4 right-4 md:left-auto md:right-8 md:w-[35%] bg-white/95 border-8 border-yellow-400 rounded-2xl p-6 shadow-xl z-20 opacity-0">
             <h1 class="text-3xl md:text-4xl font-extrabold text-red-600 text-center uppercase tracking-wide drop-shadow-sm">
                 ¡Mi Fiesta!
             </h1>
@@ -44,7 +46,6 @@
                 </div>
             </div>
 
-            <!-- Botón estilo bloque de juguete -->
             <a href="https://wa.me/521234567890?text=¡Sí+asistiré+a+la+fiesta!" 
                target="_blank"
                class="block text-center mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:mt-[26px] transition-all transform uppercase tracking-wider text-sm md:text-base">
@@ -54,7 +55,6 @@
 
     </div>
 
-    <!-- Librería GSAP Core para las animaciones -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="./src/js/main.js"></script>
 </body>
