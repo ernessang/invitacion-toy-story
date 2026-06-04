@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Al Infinito y Más Allá! - Mi Fiesta</title>
+    <!-- Fuente estilo cómic/infantil -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Estilos procesados por Tailwind -->
+    <link href="./dist/output.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Fredoka', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 min-h-screen flex items-center justify-center p-0 sm:p-4 overflow-x-hidden">
+
+    <!-- CONTENEDOR CANVAS: Mantiene la proporción del cuarto -->
+    <!-- Desktop: 16:9 (aspect-video) | Celular: 9:16 (aspect-[9/16]) -->
+    <div class="relative w-full max-w-5xl aspect-[9/16] md:aspect-video bg-sky-400 bg-[url('src/img/fondo-nubes.jpg')] bg-cover bg-center overflow-hidden rounded-none sm:rounded-2xl shadow-2xl">
+        
+        <!-- CAPA 1: La cumpleañera (Dueña del cuarto) -->
+        <div class="absolute bottom-[5%] md:bottom-[10%] left-1/2 -translate-x-1/2 w-1/2 md:w-1/4 h-1/2 md:h-3/5 bg-[url('src/img/nina.png')] bg-contain bg-no-repeat bg-bottom z-10 animate-bounce">
+            <!-- Espacio reservado para la foto PNG transparente -->
+        </div>
+
+        <!-- CAPA 2: Tarjeta de Información Flotante -->
+        <div class="absolute top-[8%] md:top-auto md:bottom-[15%] left-4 right-4 md:left-auto md:right-8 md:w-[35%] bg-white/95 border-8 border-yellow-400 rounded-2xl p-6 shadow-xl z-20 transition-all duration-500">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-red-600 text-center uppercase tracking-wide drop-shadow-sm">
+                ¡Mi Fiesta!
+            </h1>
+            <p class="text-center text-slate-500 text-sm md:text-base mt-1">Eres mi invitado especial</p>
+            
+            <div class="mt-4 space-y-2 text-slate-700 text-base md:text-lg font-medium">
+                <div class="flex justify-between border-b border-dashed pb-1">
+                    <span>📅 Fecha:</span>
+                    <span class="font-bold text-slate-900">25 de Julio</span>
+                </div>
+                <div class="flex justify-between border-b border-dashed pb-1">
+                    <span>⏰ Hora:</span>
+                    <span class="font-bold text-slate-900">4:00 PM</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>📍 Lugar:</span>
+                    <span class="font-bold text-slate-900 text-right">Salón Andy</span>
+                </div>
+            </div>
+
+            <!-- Botón estilo bloque de juguete -->
+            <a href="https://wa.me/521234567890?text=¡Sí+asistiré+a+la+fiesta!" 
+               target="_blank"
+               class="block text-center mt-6 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl border-b-4 border-blue-800 active:border-b-0 active:mt-[26px] transition-all transform uppercase tracking-wider text-sm md:text-base">
+                Confirmar Asistencia
+            </a>
+        </div>
+
+    </div>
+
+    <script src="./src/js/main.js"></script>
+</body>
+</html>
