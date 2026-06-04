@@ -8,25 +8,22 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-    <!-- Estilos procesados por Tailwind -->
-    <link href="./dist/output.css" rel="stylesheet">
+    <!-- Motor de Tailwind vía CDN (Procesa todo en tiempo real en el navegador) -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { font-family: 'Fredoka', sans-serif; }
     </style>
 </head>
 <body class="bg-slate-950 min-h-screen flex items-center justify-center p-0 sm:p-4 overflow-x-hidden">
 
-    <!-- CONTENEDOR CANVAS: Mantiene la proporción del cuarto -->
-    <!-- Desktop: 16:9 (aspect-video) | Celular: 9:16 (aspect-[9/16]) -->
-    <div class="relative w-full max-w-5xl aspect-[9/16] md:aspect-video bg-sky-400 bg-[url('src/img/fondo-nubes.jpg')] bg-cover bg-center overflow-hidden rounded-none sm:rounded-2xl shadow-2xl">
+    <!-- CONTENEDOR CANVAS (escenario-canvas) -->
+    <div class="escenario-canvas relative w-full max-w-5xl aspect-[9/16] md:aspect-video bg-sky-400 bg-[url('src/img/fondo-nubes.jpg')] bg-cover bg-center overflow-hidden rounded-none sm:rounded-2xl shadow-2xl">
         
-        <!-- CAPA 1: La cumpleañera (Dueña del cuarto) -->
-        <div class="absolute bottom-[5%] md:bottom-[10%] left-1/2 -translate-x-1/2 w-1/2 md:w-1/4 h-1/2 md:h-3/5 bg-[url('src/img/nina.png')] bg-contain bg-no-repeat bg-bottom z-10 animate-bounce">
-            <!-- Espacio reservado para la foto PNG transparente -->
-        </div>
+        <!-- CAPA 1: La cumpleañera -->
+        <div class="cumpleanera absolute bottom-[5%] md:bottom-[10%] left-1/2 -translate-x-1/2 w-1/2 md:w-1/4 h-1/2 md:h-3/5 bg-[url('src/img/nina.png')] bg-contain bg-no-repeat bg-bottom z-10 opacity-0"></div>
 
         <!-- CAPA 2: Tarjeta de Información Flotante -->
-        <div class="absolute top-[8%] md:top-auto md:bottom-[15%] left-4 right-4 md:left-auto md:right-8 md:w-[35%] bg-white/95 border-8 border-yellow-400 rounded-2xl p-6 shadow-xl z-20 transition-all duration-500">
+        <div class="info-tarjeta absolute top-[8%] md:top-auto md:bottom-[15%] left-4 right-4 md:left-auto md:right-8 md:w-[35%] bg-white/95 border-8 border-yellow-400 rounded-2xl p-6 shadow-xl z-20 opacity-0">
             <h1 class="text-3xl md:text-4xl font-extrabold text-red-600 text-center uppercase tracking-wide drop-shadow-sm">
                 ¡Mi Fiesta!
             </h1>
@@ -57,6 +54,8 @@
 
     </div>
 
+    <!-- Librería GSAP Core para las animaciones -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="./src/js/main.js"></script>
 </body>
 </html>
