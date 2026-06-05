@@ -6,7 +6,7 @@
     <title>La Aventura de Ivana - Toy Story</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Ajustes maestros para el Collage e inyección de transparencia por software */
+        /* --- PARCHE MAESTRO ANTI-FALSOS PNG Y PROTOCOLO DE AISLAMIENTO --- */
         .collage-img {
             position: absolute;
             max-height: 32vh;
@@ -14,37 +14,42 @@
             pointer-events: none;
             z-index: 5;
             opacity: 0;
-            /* El truco mágico: remueve fondos blancos y cuadros falsos de internet */
-            mix-blend-mode: multiply; 
+            display: none; /* Forzamos a que no existan en pantalla hasta que su escena se active */
+            
+            /* Súper combo para destruir cuadros grises y blancos falsos de internet */
+            mix-blend-mode: color-burn;
+            filter: contrast(110%) brightness(105%);
+            
             transition: opacity 0.4s ease-in-out, transform 0.2s ease-out;
         }
         
-        .left-side { left: 5%; }
-        .right-side { right: 5%; }
+        .left-side { left: 4%; }
+        .right-side { right: 4%; }
 
-        /* Contenedor central protegido de texto */
+        /* Contenedor central protegido de información */
         .text-container {
             width: 100%;
             max-width: 440px;
-            z-index: 10;
+            z-index: 20; /* Por encima de cualquier juguete */
             padding: 20px;
             text-align: center;
         }
 
-        /* Resguardo especial para la foto real de Ivana para que no use el filtro blend */
+        /* La foto real de Ivana NO debe llevar ningún filtro de combinación de color */
         .real-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            mix-blend-mode: normal !important; 
+            mix-blend-mode: normal !important;
+            filter: none !important;
         }
 
         @media (max-width: 600px) {
             .collage-img {
                 max-height: 22vh;
             }
-            .left-side { left: 2%; }
-            .right-side { right: 2%; }
+            .left-side { left: 1%; }
+            .right-side { right: 1%; }
         }
     </style>
 </head>
@@ -59,15 +64,15 @@
 
         <div id="scene-1" class="scene-element active">
             <div class="text-container">
-                <img src="assets/logo.png" id="main-logo" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 10px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); mix-blend-mode: multiply; transition: transform 0.1s ease-out;">
+                <img src="assets/logo.png" id="main-logo" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 10px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); mix-blend-mode: color-burn; transition: transform 0.1s ease-out;">
                 <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 2px;">PRESENTA</h2>
             </div>
         </div>
 
         <div id="scene-2" class="scene-element">
-            <img src="assets/wody.png" id="col-woody" class="collage-img left-side" style="bottom: 15%;" alt="Woody">
-            <img src="assets/pelota.png" id="col-pelota" class="collage-img left-side" style="bottom: 2%; max-height: 12vh;" alt="Pelota Pixar">
-            <img src="assets/cara-de-papa.png" id="col-potato" class="collage-img right-side" style="bottom: 15%; max-height: 25vh;" alt="Cara de Papa">
+            <img src="assets/wody.png" id="col-woody" class="collage-img left-side" style="bottom: 12%;" alt="Woody">
+            <img src="assets/pelota.png" id="col-pelota" class="collage-img left-side" style="bottom: 2%; max-height: 11vh;" alt="Pelota Pixar">
+            <img src="assets/cara-de-papa.png" id="col-potato" class="collage-img right-side" style="bottom: 15%; max-height: 24vh;" alt="Cara de Papa">
 
             <div class="text-container">
                 <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
@@ -75,9 +80,9 @@
         </div>
 
         <div id="scene-3" class="scene-element">
-            <img src="assets/buzz-running.png" id="col-buzz" class="collage-img right-side" style="top: 20%;" alt="Buzz">
-            <img src="assets/control.png" id="col-control" class="collage-img right-side" style="top: 5%; max-height: 10vh;" alt="Control">
-            <img src="assets/tresmarcianos.png" id="col-aliens" class="collage-img left-side" style="bottom: 12%; max-height: 24vh;" alt="Aliens">
+            <img src="assets/buzz-running.png" id="col-buzz" class="collage-img right-side" style="top: 18%;" alt="Buzz">
+            <img src="assets/control.png" id="col-control" class="collage-img right-side" style="top: 4%; max-height: 10vh;" alt="Control">
+            <img src="assets/tresmarcianos.png" id="col-aliens" class="collage-img left-side" style="bottom: 10%; max-height: 22vh;" alt="Aliens">
 
             <div class="text-container">
                 <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
@@ -85,9 +90,9 @@
         </div>
 
         <div id="scene-4" class="scene-element">
-            <img src="assets/png-transparent-toy-story-jessie-sheriff-woody-buzz-lightyear-bullseye-toy-story-bullseye-illustration-horse-horse-tack-cartoon-thumbnail.png" id="col-bullseye" class="collage-img left-side" style="bottom: 15%; max-height: 28vh;" alt="Tiro al Blanco">
-            <img src="assets/png-transparent-green-tree-illustration-cactaceae-cactus-in-the-desert-euclidean-desert-cactus-plant-stem-flower-plants-thumbnail.png" id="col-cactus" class="collage-img left-side" style="bottom: 2%; max-height: 18vh;" alt="Cactus">
-            <img src="assets/png-transparent-jessy-from-toy-story-jessie-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-toy-story-jessie-cartoons-cartoon-pixar-thumbnail.png" id="col-jessie" class="collage-img right-side" style="bottom: 15%;" alt="Jessie">
+            <img src="assets/png-transparent-toy-story-jessie-sheriff-woody-buzz-lightyear-bullseye-toy-story-bullseye-illustration-horse-horse-tack-cartoon-thumbnail.png" id="col-bullseye" class="collage-img left-side" style="bottom: 14%; max-height: 26vh;" alt="Tiro al Blanco">
+            <img src="assets/png-transparent-green-tree-illustration-cactaceae-cactus-in-the-desert-euclidean-desert-cactus-plant-stem-flower-plants-thumbnail.png" id="col-cactus" class="collage-img left-side" style="bottom: 2%; max-height: 16vh;" alt="Cactus">
+            <img src="assets/png-transparent-jessy-from-toy-story-jessie-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-toy-story-jessie-cartoons-cartoon-pixar-thumbnail.png" id="col-jessie" class="collage-img right-side" style="bottom: 14%;" alt="Jessie">
 
             <div class="text-container">
                 <p class="story-text" style="color: #1c355e; text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.8rem;">"El Castillo"</span></p>
@@ -97,7 +102,7 @@
 
         <div id="scene-5" class="scene-element">
             <img src="assets/rex.png" id="col-rex" class="collage-img left-side" style="bottom: 5%; max-height: 28vh; transform: scaleX(-1);" alt="Rex">
-            <img src="assets/png-transparent-toy-story-pig-character-illustration-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-jessie-slinky-dog-john-tory-mammal-buzz-lightyear-pixar-thumbnail.png" id="col-hamm" class="collage-img right-side" style="bottom: 8%; max-height: 20vh;" alt="Hamm">
+            <img src="assets/png-transparent-toy-story-pig-character-illustration-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-jessie-slinky-dog-john-tory-mammal-buzz-lightyear-pixar-thumbnail.png" id="col-hamm" class="collage-img right-side" style="bottom: 8%; max-height: 18vh;" alt="Hamm">
 
             <div class="text-container" style="display: flex; flex-direction: column; align-items: center;">
                 <div class="photo-frame">
