@@ -81,7 +81,7 @@
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        /* Juguetes flotantes */
+        /* Juguetes flotantes ajustados */
         .juguete-flotante {
             position: absolute;
             max-height: 28vh;
@@ -153,7 +153,7 @@
 </head>
 <body>
 
-    <!-- ESCENA 1: LOGO (INTACTO, NO SE MUEVE) -->
+    <!-- ESCENA 1: LOGO (INTACTO) -->
     <div class="seccion">
         <div class="efecto">
             <div class="nube" style="top: 15%; animation-delay: 0s;"></div>
@@ -168,14 +168,9 @@
         <div class="efecto">
             <div class="nube" style="top: 25%; animation-delay: -3s;"></div>
         </div>
-        <!-- El cactus original e intacto -->
+        <!-- Un solo cactus flotando perfectamente -->
         <img src="assets/cactus.png" class="juguete-flotante izquierda-arriba" alt="Cactus">
-        
-        <!-- Woody con buscador de errores automático -->
-        <img src="assets/wody.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/woody.png','assets/wody.PNG','assets/woody.PNG','assets/wody.jpg','assets/woody.jpg']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante izquierda-abajo" alt="Woody">
-        
-        <!-- Cara de Papa con buscador de errores automático -->
-        <img src="assets/cara-de-papa.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/caradepapa.png','assets/cara-de-papa.PNG','assets/caradepapa.PNG','assets/cara-de-papa.jpg']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
+        <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
         
         <div class="contenedor-texto">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
@@ -189,11 +184,8 @@
             <div class="estrella" style="top: 30%; left: 80%; animation-delay: 0.5s;"></div>
             <div class="estrella" style="top: 75%; left: 25%; animation-delay: 1s;"></div>
         </div>
-        <!-- Buzz con buscador de errores automático -->
-        <img src="assets/buzz-running2.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/buzz-running.png','assets/buzz.png','assets/buzz-running2.PNG','assets/buzz-running.PNG','assets/buzz.PNG']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante derecha-arriba" alt="Buzz">
-        
-        <!-- Pelota con buscador de errores automático -->
-        <img src="assets/pelota.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/pelota.PNG','assets/pelota.jpg','assets/pixar-ball.png']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante izquierda-abajo" style="max-height: 14vh;" alt="Pelota Pixar">
+        <img src="assets/buzz-running2.png" class="juguete-flotante derecha-arriba" alt="Buzz">
+        <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 14vh;" alt="Pelota Pixar">
         
         <div class="contenedor-texto">
             <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
@@ -202,8 +194,7 @@
 
     <!-- ESCENA 4: EL LUGAR -->
     <div class="seccion">
-        <!-- Tiro al Blanco con buscador de errores automático -->
-        <img src="assets/bullseye.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/bullseye.PNG','assets/tiro-al-blanco.png','assets/tiroalblanco.png','assets/bullseye.jpg']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante izquierda-abajo" alt="Tiro al Blanco">
+        <img src="assets/bullseye.png" class="juguete-flotante izquierda-abajo" alt="Tiro al Blanco">
         
         <div class="contenedor-texto">
             <p class="story-text">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
@@ -213,13 +204,11 @@
 
     <!-- ESCENA 5: LA CUMPLEAÑERA Y EL BOTÓN -->
     <div class="seccion">
-        <!-- Hamm con buscador de errores automático -->
-        <img src="assets/hamm.png" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/hamm.PNG','assets/cochinito.png','assets/hamm.jpg']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
+        <img src="assets/hamm.png" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
         
         <div class="contenedor-texto">
             <div class="photo-frame">
-                <!-- Ivana con buscador de extensiones automático -->
-                <img src="assets/ivana.jpg" onerror="if(!this.dataset.step)this.dataset.step=0; let alts=['assets/ivana.JPG','assets/ivana.png','assets/ivana.PNG','assets/ivana.jpeg']; if(this.dataset.step<alts.length){this.src=alts[this.dataset.step++];}" class="real-photo" alt="Ivana">
+                <img src="assets/ivana.jpg" class="real-photo" alt="Ivana">
             </div>
             <p class="story-text" style="font-size: 1.6rem; margin-bottom: 15px;">¿TE UNES A LA AVENTURA?</p>
             <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
