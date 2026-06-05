@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    background: linear-gradient(to bottom, #4ba3e3 0%, #7bc6f6 100%);
+    font-family: 'Arial Black', Impact, sans-serif;
+}
+
+#sky-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.invitation-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 20px;
+}
+
+.toy-title {
+    font-size: 3rem;
+    color: #fde100;
+    text-shadow: 
+        -3px -3px 0 #e41a22,  
+         3px -3px 0 #e41a22,
+        -3px  3px 0 #e41a22,
+         3px  3px 0 #e41a22,
+         4px  4px 0 #1c355e;
+    letter-spacing: 2px;
+    transform: scale(0);
+}
+
+.toy-subtitle {
+    font-size: 1.5rem;
+    color: #ffffff;
+    margin-top: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+    opacity: 0;
+}
