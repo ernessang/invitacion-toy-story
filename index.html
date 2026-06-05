@@ -122,56 +122,17 @@
             font-weight: 600;
         }
 
-        /* ----- SECCIÓN FORMULARIO INTERACTIVO ----- */
-        .rsvp-form {
-            background: #fff8d4;
-            border: 4px solid #1c355e;
-            border-radius: 20px;
-            padding: 20px 15px;
-            margin-top: 20px;
-        }
-
-        .rsvp-form h3 {
-            color: #1c355e;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #1c355e;
-            margin-bottom: 5px;
-        }
-
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px;
-            border: 2px solid #1c355e;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-family: sans-serif;
-            color: #333;
-        }
-
         .btn-rsvp {
             display: block;
             width: 100%;
             background: #fde100;
             color: #1c355e;
             border: 4px solid #e41a22;
-            padding: 12px 20px;
-            font-size: 1.2rem;
+            padding: 15px 20px;
+            font-size: 1.3rem;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 15px;
+            margin-top: 25px;
             box-shadow: 0 5px 0 #bc1319;
             transition: all 0.1s ease;
             cursor: pointer;
@@ -181,6 +142,21 @@
         .btn-rsvp:active {
             transform: translateY(4px);
             box-shadow: 0 1px 0 #bc1319;
+        }
+
+        /* ----- NOTIFICACIÓN DE GRACIAS ----- */
+        .thanks-message {
+            display: none;
+            background: #e6f7ed;
+            border: 3px solid #2e7d32;
+            color: #1b5e20;
+            border-radius: 15px;
+            padding: 12px;
+            margin-top: 20px;
+            font-family: sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            animation: fadeIn 0.5s ease forwards;
         }
 
         /* ----- BOTÓN FLOTANTE DE MÚSICA ----- */
@@ -206,6 +182,11 @@
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -249,28 +230,12 @@
             <p>Salón de Fiestas "La Caja de Juguetes"<br><span style="font-size: 0.9rem; color: #666;">Av. Principal #123, Ciudad de México</span></p>
         </div>
 
-        <div class="rsvp-form" onclick="event.stopPropagation();">
-            <h3>🚀 CONFIRMA TU ASISTENCIA</h3>
-            
-            <div class="input-group">
-                <label for="guest-name">Nombre de la Familia / Invitado:</label>
-                <input type="text" id="guest-name" placeholder="Ej. Familia Sangabriel">
-            </div>
+        <button class="btn-rsvp" onclick="sendRSVP(event)">
+            🚀 CONFIRMAR ASISTENCIA
+        </button>
 
-            <div class="input-group">
-                <label for="pass-count">¿Cuántos pases necesitan?</label>
-                <select id="pass-count">
-                    <option value="1">1 Pase</option>
-                    <option value="2" selected>2 Pases</option>
-                    <option value="3">3 Pases</option>
-                    <option value="4">4 Pases</option>
-                    <option value="5">5 Pases</option>
-                </select>
-            </div>
-
-            <button class="btn-rsvp" onclick="sendRSVP()">
-                ¡CONFIRMAR POR WHATSAPP!
-            </button>
+        <div class="thanks-message" id="thanks-box">
+            💚 ¡Gracias por confirmar! Te estamos redirigiendo a WhatsApp...
         </div>
     </div>
 
@@ -304,26 +269,25 @@
             }
         }
 
-        // --- LÓGICA DE ENVÍO DE WHATSAPP ---
-        function sendRSVP() {
-            // Reemplaza este número por TU WhatsApp real (incluyendo el código de país, sin espacios ni +)
-            // Ejemplo para México: 52 + tus 10 dígitos -> 525512345678
+        // --- ENVIAR MENSAJE DIRECTO ---
+        function sendRSVP(event) {
+            event.stopPropagation(); // Evita conflictos con el clic de la tarjeta
+
+            // Pon aquí tu número real sin espacios ni el signo + (Ej. 525512345678)
             const myPhoneNumber = "525512345678"; 
 
-            const name = document.getElementById('guest-name').value.trim();
-            const pases = document.getElementById('pass-count').value;
+            // Mensaje automático listo para que el invitado solo le dé a "Enviar" en su app
+            const message = `¡Hola! 👋 Confirmo mi asistencia al cumpleaños de Majo 🎉. ¡Ahí nos vemos para la aventura! 🚀`;
 
-            if (name === "") {
-                alert("Por favor, escribe tu nombre para confirmar la asistencia ✨");
-                return;
-            }
+            // Muestra el letrero verde de "Gracias por confirmar" en la invitación
+            document.getElementById('thanks-box').style.display = 'block';
 
-            // Crear el mensaje formateado para la app de WhatsApp
-            const message = `¡Hola! Confirmo mi asistencia al cumpleaños de Majo 🎉.%0A👤 Nombre: ${encodeURIComponent(name)}%0A🎟️ Pases solicitados: ${pases}%0A¡Nos vemos allá para la aventura! 🚀`;
-
-            // Abrir API de WhatsApp universal (funciona en PC y Celulares)
-            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${message}`;
-            window.open(whatsappUrl, '_blank');
+            // Abre el chat de WhatsApp de inmediato
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
+            
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+            }, 800); // Pequeña pausa para que se alcance a leer el agradecimiento antes de cambiar de app
         }
     </script>
 
