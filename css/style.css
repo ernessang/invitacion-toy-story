@@ -8,7 +8,7 @@ html, body {
     background-color: #000;
     font-family: 'Arial Black', Impact, sans-serif;
     color: #fff;
-    height: 600vh; 
+    height: 600vh; /* Espacio de scroll para el recorrido */
 }
 
 /* ----- EL VISOR FIJO ----- */
@@ -30,11 +30,11 @@ html, body {
     width: 100%;
     height: 100%;
     background: linear-gradient(to bottom, 
-        #4ba3e3 0%,   
+        #4ba3e3 0%,   /* Cuarto de Andy (Azul) */
         #7bc6f6 15%,
-        #1a113c 40%,  
+        #1a113c 40%,  /* Pizza Planeta (Morado Oscuro) */
         #0b071e 65%,
-        #ff9e43 85%,  
+        #ff9e43 85%,  /* El Desierto (Naranja) */
         #ff6b6b 100%
     );
     background-size: 100% 600%;
@@ -98,7 +98,7 @@ html, body {
     100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
 }
 
-/* ----- ELEMENTOS NARRATIVOS ----- */
+/* ----- ELEMENTOS NARRATIVOS (TEXTOS) ----- */
 .scene-element {
     position: absolute;
     width: 100%;
@@ -122,11 +122,11 @@ html, body {
     pointer-events: auto;
 }
 
-/* ----- TIPOGRAFÍA ----- */
+/* ----- TIPOGRAFÍA Y MARCOS ----- */
 .logo-title {
     font-size: 3.5rem;
     color: #fde100;
-    text-shadow: -4px -4px 0 #e41a22, 4px -4px 0 #e41a22, -4px 4px 0 #e41a22, -4px 4px 0 #e41a22, 6px 6px 0 #1c355e;
+    text-shadow: -4px -4px 0 #e41a22, 4px -4px 0 #e41a22, -4px 4px 0 #e41a22, 4px 4px 0 #e41a22, 6px 6px 0 #1c355e;
     letter-spacing: 2px;
     line-height: 1.1;
 }
@@ -142,12 +142,6 @@ html, body {
 .highlight-blue { color: #fde100; text-shadow: 2px 2px 0 #1c355e, -2px -2px 0 #1c355e; }
 .highlight-green { color: #39ff14; text-shadow: 0 0 10px rgba(57,255,20,0.8); }
 
-.character-placeholder {
-    font-size: 5rem;
-    margin-top: 20px;
-    animation: float 3s ease-in-out infinite;
-}
-
 .photo-frame {
     width: 220px;
     height: 280px;
@@ -157,12 +151,6 @@ html, body {
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     margin-bottom: 25px;
     overflow: hidden;
-}
-
-.photo-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .btn-rsvp {
@@ -176,9 +164,4 @@ html, body {
     text-decoration: none;
     box-shadow: 0 6px 0 #bc1319;
     cursor: pointer;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
 }

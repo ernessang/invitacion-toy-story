@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const starsContainer = document.getElementById('env-stars');
     const dustContainer = document.getElementById('env-dust');
 
-    // Generador de ambiente
+    // Generador de partículas ambientales
     for (let i = 0; i < 5; i++) {
         let cloud = document.createElement('div');
         cloud.className = 'cloud-particle';
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         dustContainer.appendChild(dust);
     }
 
-    // --- MANEJO ESTRICTO DEL SCROLL ---
+    // --- CÁLCULO PARALLAX DEL SCROLL ---
     window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const masterBg = document.getElementById('master-bg');
         if (masterBg) masterBg.style.backgroundPosition = `center ${scrollPercent}%`;
 
-        // Elementos del DOM
+        // Captura de juguetes por ID
         const logo = document.getElementById('main-logo');
         const woody = document.getElementById('col-woody');
         const pelota = document.getElementById('col-pelota');
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
             logo.style.transform = `scale(${1 + scrollPercent * 0.012}) translateY(${scrollTop * 0.15}px)`;
         }
 
-        // SEGMENTACIÓN ABSOLUTA DE ESCENAS
+        // CONTROL CINEMATOGRÁFICO DE ENTRADAS Y SALIDAS
         if (scrollPercent >= 0 && scrollPercent < 18) {
             setActiveScene(s1, [s2, s3, s4, s5]);
             setEnvOpacity(1, 0, 0);
@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
             setActiveScene(s5, [s1, s2, s3, s4]);
             setEnvOpacity(0, 0, 0.7);
             
-            // APAGÓN TOTAL DE JUGUETES ANTERIORES (Garantiza espacio limpio para Ivana)
             manageGroupVisibility([woody, pelota, potato, buzz, control, aliens, bullseye, cactus, jessie], false);
             manageGroupVisibility([rex, hamm], true);
 
@@ -132,13 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Control estricto de existencia en el DOM
     function manageGroupVisibility(elementsArray, show) {
         elementsArray.forEach(el => {
             if (el) {
                 if (show) {
                     el.style.display = 'block';
-                    // Pequeño delay para que la transición de opacidad funcione suave
                     setTimeout(() => { el.style.opacity = 1; }, 10);
                 } else {
                     el.style.opacity = 0;
