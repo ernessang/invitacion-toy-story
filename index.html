@@ -29,7 +29,6 @@
             z-index: 1;
         }
 
-        /* Nubes flotando */
         .nube {
             position: absolute;
             background: rgba(255, 255, 255, 0.6);
@@ -46,7 +45,6 @@
             100% { left: 100vw; }
         }
 
-        /* Estrellas brillando */
         .estrella {
             position: absolute;
             background: #fff;
@@ -155,66 +153,35 @@
 </head>
 <body>
 
-    <!-- ESCENA 1: LOGO (Cargado desde Wikimedia Oficial) -->
     <div class="seccion">
         <div class="efecto">
             <div class="nube" style="top: 15%; animation-delay: 0s;"></div>
             <div class="nube" style="top: 40%; animation-delay: -5s;"></div>
         </div>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/Toy_Story_logo.svg" alt="Toy Story Logo" style="width: 85%; max-width: 360px; height: auto; margin-bottom: 25px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); z-index: 20; position: relative;">
+        <img src="assets/logo.png" alt="Toy Story Logo" style="width: 85%; max-width: 360px; height: auto; margin-bottom: 25px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); z-index: 20; position: relative;">
         <h2 style="font-size: 2rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 3px; z-index: 20; position: relative;">PRESENTA</h2>
     </div>
 
-    <!-- ESCENA 2: LA PRINCESA (Cargado con tus archivos locales seguros) -->
     <div class="seccion">
         <div class="efecto">
             <div class="nube" style="top: 25%; animation-delay: -3s;"></div>
         </div>
         <img src="assets/cactus.png" class="juguete-flotante izquierda-arriba" alt="Cactus">
-        <img src="assets/logo.png" class="juguete-flotante derecha-abajo" style="max-height: 15vh;" alt="Mini Logo">
+        <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
         
         <div class="contenedor-texto">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
         </div>
     </div>
 
-    <!-- ESCENA 3: LA FECHA -->
     <div class="seccion">
         <div class="efecto">
             <div class="estrella" style="top: 20%; left: 15%;"></div>
             <div class="estrella" style="top: 30%; left: 80%; animation-delay: 0.5s;"></div>
             <div class="estrella" style="top: 75%; left: 25%; animation-delay: 1s;"></div>
         </div>
-        <img src="assets/cactus.png" class="juguete-flotante derecha-arriba" style="transform: scaleX(-1);" alt="Cactus Mirror">
+        <img src="assets/buzz-running2.png" class="juguete-flotante derecha-arriba" alt="Buzz">
+        <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 14vh;" alt="Pelota Pixar">
         
         <div class="contenedor-texto">
-            <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
-        </div>
-    </div>
-
-    <!-- ESCENA 4: EL LUGAR -->
-    <div class="seccion">
-        <img src="assets/cactus.png" class="juguete-flotante izquierda-abajo" alt="Cactus Base">
-        
-        <div class="contenedor-texto">
-            <p class="story-text">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
-            <p style="font-size: 1.4rem; margin-top: 15px; font-weight: bold;">A partir de las 3:00 PM ⏰</p>
-        </div>
-    </div>
-
-    <!-- ESCENA 5: LA CUMPLEAÑERA Y EL BOTÓN -->
-    <div class="seccion">
-        <div class="contenedor-texto">
-            <div class="photo-frame">
-                <!-- Tu foto local de Ivana vinculada perfectamente -->
-                <img src="assets/ivana.jpg" class="real-photo" alt="Ivana">
-            </div>
-            <p class="story-text" style="font-size: 1.6rem; margin-bottom: 15px;">¿TE UNES A LA AVENTURA?</p>
-            <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
-                🚀 CONFIRMAR ASISTENCIA
-            </a>
-        </div>
-    </div>
-
-</body>
-</html>
+            <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4
