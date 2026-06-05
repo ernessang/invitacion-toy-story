@@ -4,23 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invitación Toy Story</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(to bottom, #4ba3e3 0%, #7bc6f6 100%);
+            font-family: 'Arial Black', Impact, sans-serif;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* Forzamos al canvas a estar al fondo pero visible */
+        #sky-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* El contenedor va por encima de las nubes */
+        .invitation-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+            pointer-events: none;
+        }
+
+        .toy-title {
+            font-size: 3.5rem;
+            color: #fde100;
+            text-shadow: 
+                -3px -3px 0 #e41a22,  
+                 3px -3px 0 #e41a22,
+                -3px  3px 0 #e41a22,
+                 3px  3px 0 #e41a22,
+                 5px  5px 0 #1c355e;
+            letter-spacing: 2px;
+            transform: scale(0);
+        }
+
+        .toy-subtitle {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-top: 15px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            opacity: 0;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Fondo del cielo de Andy con Canvas -->
     <canvas id="sky-canvas"></canvas>
 
-    <!-- Contenedor principal de la invitación -->
     <div class="invitation-container">
-        <header class="toy-header">
+        <header style="pointer-events: auto;">
             <h1 class="toy-title" id="title-main">¡ESTÁS INVITADO!</h1>
             <h2 class="toy-subtitle" id="title-sub">A una aventura inolvidable</h2>
         </header>
     </div>
 
-    <!-- Importar GSAP desde CDN e iniciar la lógica -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // --- 1. ANIMACIÓN DEL TÍTULO (GSAP) ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+            tl.to("#title-main", {
+                scale: 1,
+                duration: 1.2,
+                ease: "bounce.out"
+            })
+            .to("#title-sub", {
+                opacity: 1,
+                y: -10,
+                duration: 0.8,
+                ease: "power2.out"
+            }, "-=0.4");
+        });
+
+        // --- 2. CANVAS DE NUBES MEJORADO ---
+        const canvas = document.getElementById('sky-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let clouds = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initClouds();
+        }
+
+        function initClouds() {
+            const w = canvas.width;
+            const h = canvas.height;
+            // Estructura de nubes con coordenadas proporcionales obligatorias
+            clouds = [
+                { x: w * 0.1, y: h * 0.15, scale: 0.7, speed: 0.4 },
+                { x: w * 0.4, y: h * 0.08, scale: 0.9, speed: 0.2 },
+                { x: w * 0.7, y: h * 0.25, scale: 0.6, speed: 0.5 },
+                { x: w * 0.9, y: h * 0.12, scale: 0.8, speed: 0.3 }
+            ];
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Renderizado explícito de las nubes del cuarto de Andy
+        function drawAndyCloud(x, y, scale) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(scale, scale);
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)"; // Casi blanco sólido para que resalte bien
+            ctx.beginPath();
+            
+            // Geometría clásica de Toy Story
+            ctx.arc(50, 50, 35, 0, Math.PI * 2);
+            ctx.arc(95, 25, 45, 0, Math.PI * 2);
+            ctx.arc(150, 45, 35, 0, Math.PI * 2);
+            ctx.fillRect(50, 30, 100, 55);
+            
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            clouds.forEach(cloud => {
+                cloud.x -= cloud.speed;
+                
+                // Si la nube cruza el lado izquierdo, reaparece en la derecha
+                if (cloud.x < -200 * cloud.scale) {
+                    cloud.x = canvas.width + 150;
+                    cloud.y = Math.random() * (canvas.height * 0.4);
+                }
+                
+                drawAndyCloud(cloud.x, cloud.y, cloud.scale);
+            });
+            
+            requestAnimationFrame(animate);
+        }
+
+        // Ejecución inmediata
+        resizeCanvas();
+        animate();
+    </script>
 </body>
 </html>
