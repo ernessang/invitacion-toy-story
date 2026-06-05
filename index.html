@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Toy Story</title>
+    <title>Invitación Toy Story - Ivana</title>
     <style>
         * {
             margin: 0;
@@ -144,7 +144,6 @@
             box-shadow: 0 1px 0 #bc1319;
         }
 
-        /* ----- NOTIFICACIÓN DE GRACIAS ----- */
         .thanks-message {
             display: none;
             background: #e6f7ed;
@@ -212,22 +211,22 @@
     </div>
 
     <div class="invitation-card" onclick="startAudioOnInteraction()">
-        <h1 class="toy-title">¡MAJO!</h1>
+        <h1 class="toy-title">IVANA</h1>
         <h2 class="toy-subtitle">¡Cumple 3 Años al Estilo Toy Story!</h2>
 
         <div class="info-box">
             <h3>📅 ¿CUÁNDO ES?</h3>
-            <p>Sábado, 20 de Junio</p>
+            <p>Sábado, 4 de Julio de 2026</p>
         </div>
 
         <div class="info-box">
             <h3>⏰ ¿A QUÉ HORA?</h3>
-            <p>A partir de las 4:00 PM</p>
+            <p>A partir de las 3:00 PM</p>
         </div>
 
         <div class="info-box">
             <h3>📍 ¿DÓNDE ES?</h3>
-            <p>Salón de Fiestas "La Caja de Juguetes"<br><span style="font-size: 0.9rem; color: #666;">Av. Principal #123, Ciudad de México</span></p>
+            <p>Salón "El Castillo"</p>
         </div>
 
         <button class="btn-rsvp" onclick="sendRSVP(event)">
@@ -271,23 +270,21 @@
 
         // --- ENVIAR MENSAJE DIRECTO ---
         function sendRSVP(event) {
-            event.stopPropagation(); // Evita conflictos con el clic de la tarjeta
+            event.stopPropagation();
 
-            // Pon aquí tu número real sin espacios ni el signo + (Ej. 525512345678)
-            const myPhoneNumber = "525512345678"; 
+            // Tu número telefónico configurado
+            const myPhoneNumber = "525585473097"; 
 
-            // Mensaje automático listo para que el invitado solo le dé a "Enviar" en su app
-            const message = `¡Hola! 👋 Confirmo mi asistencia al cumpleaños de Majo 🎉. ¡Ahí nos vemos para la aventura! 🚀`;
+            // Mensaje automático personalizado para Ivana
+            const message = `¡Hola! 👋 Confirmo mi asistencia al cumpleaños de Ivana 🎉. ¡Ahí nos vemos para la aventura! 🚀`;
 
-            // Muestra el letrero verde de "Gracias por confirmar" en la invitación
             document.getElementById('thanks-box').style.display = 'block';
 
-            // Abre el chat de WhatsApp de inmediato
             const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
             
             setTimeout(() => {
                 window.open(whatsappUrl, '_blank');
-            }, 800); // Pequeña pausa para que se alcance a leer el agradecimiento antes de cambiar de app
+            }, 800);
         }
     </script>
 
