@@ -12,26 +12,28 @@
         }
 
         body {
-            overflow: hidden;
+            overflow-x: hidden;
             background: linear-gradient(to bottom, #4ba3e3 0%, #7bc6f6 100%);
             font-family: 'Arial Black', Impact, sans-serif;
-            width: 100vw;
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        /* ----- CONTENEDOR DE NUBES EN CSS ----- */
+        /* ----- FONDO DE NUBES ANIMADAS ----- */
         .sky {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 50%;
+            height: 100%;
             z-index: 1;
             pointer-events: none;
         }
 
-        /* Estructura geométrica de la nube clásica de Toy Story */
         .cloud {
             position: absolute;
             background: rgba(255, 255, 255, 0.95);
@@ -48,46 +50,37 @@
             border-radius: 50%;
         }
 
-        .cloud::before {
-            width: 50px;
-            height: 50px;
-            top: -25px;
-            left: 15px;
-        }
+        .cloud::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud::after { width: 70px; height: 70px; top: -45px; left: 40px; }
 
-        .cloud::after {
-            width: 70px;
-            height: 70px;
-            top: -45px;
-            left: 40px;
-        }
-
-        /* Configuración de tiempos y posiciones de las nubes */
-        .c1 { top: 10%; left: -150px; transform: scale(0.8); animation-duration: 25s; }
-        .c2 { top: 25%; left: -150px; transform: scale(1.1); animation-duration: 35s; animation-delay: 5s; }
-        .c3 { top: 15%; left: -150px; transform: scale(0.6); animation-duration: 20s; animation-delay: 12s; }
-        .c4 { top: 35%; left: -150px; transform: scale(0.9); animation-duration: 30s; animation-delay: 2s; }
+        .c1 { top: 10%; left: -150px; transform: scale(0.8); animation-duration: 22s; }
+        .c2 { top: 25%; left: -150px; transform: scale(1.1); animation-duration: 32s; animation-delay: 4s; }
+        .c3 { top: 60%; left: -150px; transform: scale(0.7); animation-duration: 26s; animation-delay: 8s; }
+        .c4 { top: 80%; left: -150px; transform: scale(0.9); animation-duration: 28s; animation-delay: 2s; }
 
         @keyframes moveClouds {
             0% { left: -150px; }
             100% { left: 100vw; }
         }
 
-        /* ----- CONTENEDOR DE TEXTOS ----- */
-        .invitation-container {
+        /* ----- CONTENEDOR PRINCIPAL (ESTILO CAJA DE JUGUETES) ----- */
+        .invitation-card {
+            background: #ffffff;
+            border: 8px solid #e41a22;
+            border-radius: 25px;
+            padding: 30px 20px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(0,0,0,0.1);
             position: relative;
             z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
+        /* ----- LOGO / TITULO TOY STORY ----- */
         .toy-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #fde100;
             text-shadow: 
                 -3px -3px 0 #e41a22,  
@@ -95,34 +88,70 @@
                 -3px  3px 0 #e41a22,
                  3px  3px 0 #e41a22,
                  5px  5px 0 #1c355e;
-            letter-spacing: 2px;
-            animation: bounceIn 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
         }
 
         .toy-subtitle {
-            font-size: 1.6rem;
-            color: #ffffff;
+            font-size: 1.4rem;
+            color: #1c355e;
+            margin-bottom: 25px;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        /* ----- CUADROS DE INFORMACIÓN ----- */
+        .info-box {
+            background: #f4f9fd;
+            border: 3px dashed #4ba3e3;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .info-box h3 {
+            color: #e41a22;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .info-box p {
+            color: #333333;
+            font-size: 1.2rem;
+            font-family: sans-serif;
+            font-weight: 600;
+        }
+
+        /* ----- BOTÓN DE CONFIRMACIÓN ----- */
+        .btn-rsvp {
+            display: inline-block;
+            background: #fde100;
+            color: #1c355e;
+            border: 4px solid #e41a22;
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
             margin-top: 15px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-            opacity: 0;
-            animation: fadeIn 0.8s ease-out 0.8s forwards;
+            box-shadow: 0 5px 0 #bc1319;
+            transition: all 0.1s ease;
         }
 
-        @keyframes bounceIn {
-            0% { transform: scale(0); }
-            70% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        .btn-rsvp:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #bc1319;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Cielo con Nubes Animadas CSS -->
     <div class="sky">
         <div class="cloud c1"></div>
         <div class="cloud c2"></div>
@@ -130,12 +159,28 @@
         <div class="cloud c4"></div>
     </div>
 
-    <!-- Contenedor principal de la invitación -->
-    <div class="invitation-container">
-        <header>
-            <h1 class="toy-title">¡ESTÁS INVITADO!</h1>
-            <h2 class="toy-subtitle">A una aventura inolvidable</h2>
-        </header>
+    <div class="invitation-card">
+        <h1 class="toy-title">¡MAJO!</h1>
+        <h2 class="toy-subtitle">¡Cumple 3 Años al Estilo Toy Story!</h2>
+
+        <div class="info-box">
+            <h3>📅 ¿CUÁNDO ES?</h3>
+            <p>Sábado, 20 de Junio</p>
+        </div>
+
+        <div class="info-box">
+            <h3>⏰ ¿A QUÉ HORA?</h3>
+            <p>A partir de las 4:00 PM</p>
+        </div>
+
+        <div class="info-box">
+            <h3>📍 ¿DÓNDE ES?</h3>
+            <p>Salón de Fiestas "La Caja de Juguetes"<br><span style="font-size: 0.9rem; color: #666;">Av. Principal #123, Ciudad de México</span></p>
+        </div>
+
+        <a href="https://wa.me/52XXXXXXXXXX?text=¡Hola!+Confirmo+mi+asistencia+al+cumpleaños+de+Majo" target="_blank" class="btn-rsvp">
+            🚀 CONFIRMAR ASISTENCIA
+        </a>
     </div>
 
 </body>
