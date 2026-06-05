@@ -15,7 +15,7 @@
             background-color: #000;
             font-family: 'Arial Black', Impact, sans-serif;
             color: #fff;
-            height: 600vh; /* Espacio de scroll para la película */
+            height: 600vh; 
         }
 
         /* ----- EL VISOR FIJO ----- */
@@ -29,14 +29,13 @@
             z-index: 1;
         }
 
-        /* ----- FONDO MAESTRO CONTINUO (DEGRADADO ULTRA SUAVE) ----- */
+        /* ----- FONDO MAESTRO CONTINUO ----- */
         #master-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Unimos todos los mundos en un solo degradado gigante */
             background: linear-gradient(to bottom, 
                 #4ba3e3 0%,   /* Cuarto de Andy */
                 #7bc6f6 15%,
@@ -45,9 +44,65 @@
                 #ff9e43 85%,  /* El Desierto */
                 #ff6b6b 100%
             );
-            background-size: 100% 600%; /* Hacemos el fondo 6 veces más alto */
+            background-size: 100% 600%;
             background-position: top center;
-            transition: background-position 0.4s ease-out; /* Suavizado del motor */
+            transition: background-position 0.4s ease-out;
+        }
+
+        /* ----- EFECTOS AMBIENTALES POR CAPAS ----- */
+        .ambient-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            z-index: 2;
+        }
+
+        /* DETALLE 1: Nubes del cuarto de Andy */
+        .cloud-particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            width: 80px;
+            height: 25px;
+            border-radius: 20px;
+            animation: drift linear infinite;
+        }
+        .cloud-particle::before {
+            content: ''; position: absolute; background: rgba(255, 255, 255, 0.4);
+            width: 40px; height: 40px; top: -20px; left: 10px; border-radius: 50%;
+        }
+        @keyframes drift {
+            0% { left: -100px; }
+            100% { left: 100vw; }
+        }
+
+        /* DETALLE 2: Estrellas de Pizza Planeta */
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: blink infinite ease-in-out;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); background: #00ffcc; }
+        }
+
+        /* DETALLE 3: Polvo dorado del Desierto */
+        .dust {
+            position: absolute;
+            background: rgba(255, 225, 100, 0.6);
+            border-radius: 50%;
+            animation: rise infinite linear;
+        }
+        @keyframes rise {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
         }
 
         /* ----- ELEMENTOS NARRATIVOS ----- */
@@ -65,16 +120,16 @@
             transform: scale(0.85) translateY(30px);
             transition: opacity 0.7s ease-in-out, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
             pointer-events: none;
+            z-index: 3;
         }
 
-        /* Encendido de escena activa */
         .scene-element.active {
             opacity: 1;
             transform: scale(1) translateY(0);
             pointer-events: auto;
         }
 
-        /* ----- TIPOGRAFÍA Y DISEÑO ----- */
+        /* ----- TIPOGRAFÍA ----- */
         .logo-title {
             font-size: 3.5rem;
             color: #fde100;
@@ -139,8 +194,13 @@
 <body>
 
     <div class="viewer">
-        <!-- CAPA ÚNICA DE FONDO EN MOVIMIENTO DE RODILLO -->
+        <!-- CAPA ÚNICA DE FONDO -->
         <div id="master-bg"></div>
+
+        <!-- CAPAS DE EFECTOS PARTICULAS (DOM GENÉRICO) -->
+        <div id="env-clouds" class="ambient-layer"></div>
+        <div id="env-stars" class="ambient-layer"></div>
+        <div id="env-dust" class="ambient-layer"></div>
 
         <!-- ESCENA 1: EL LOGO DE ENTRADA -->
         <div id="scene-1" class="scene-element active">
@@ -179,41 +239,93 @@
         </div>
     </div>
 
-    <!-- CONTROLADOR DEL DOM POR PORCENTAJE DE SCROLL -->
     <script>
+        // --- CONFIGURACIÓN DINÁMICA DE MICRO-EFECTOS EN EL DOM ---
+        const cloudsContainer = document.getElementById('env-clouds');
+        const starsContainer = document.getElementById('env-stars');
+        const dustContainer = document.getElementById('env-dust');
+
+        // Generar 5 nubes sutiles
+        for (let i = 0; i < 5; i++) {
+            let cloud = document.createElement('div');
+            cloud.className = 'cloud-particle';
+            cloud.style.top = `${Math.random() * 60 + 5}%`;
+            cloud.style.animationDuration = `${Math.random() * 15 + 20}s`;
+            cloud.style.animationDelay = `${Math.random() * 10}s`;
+            cloud.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+            cloudsContainer.appendChild(cloud);
+        }
+
+        // Generar 35 estrellas espaciales
+        for (let i = 0; i < 35; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = `${Math.random() * 3 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+            star.style.animationDelay = `${Math.random() * 2}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Generar 20 partículas de polvo desértico
+        for (let i = 0; i < 20; i++) {
+            let dust = document.createElement('div');
+            dust.className = 'dust';
+            dust.style.width = `${Math.random() * 4 + 2px}`;
+            dust.style.height = dust.style.width;
+            dust.style.left = `${Math.random() * 100}%`;
+            dust.style.animationDuration = `${Math.random() * 4 + 3}s`;
+            dust.style.animationDelay = `${Math.random() * 5}s`;
+            dustContainer.appendChild(dust);
+        }
+
+        // --- MANIPULACIÓN DEL DOM EN EL SCROLL ---
         window.addEventListener('scroll', () => {
             const scrollTop = window.scrollY;
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
 
-            // Mover el degradado maestro suavemente como un rodillo
+            // Rodillo de color
             const masterBg = document.getElementById('master-bg');
             masterBg.style.backgroundPosition = `center ${scrollPercent}%`;
 
-            // Elementos de las escenas
+            // Escenas
             const s1 = document.getElementById('scene-1');
             const s2 = document.getElementById('scene-2');
             const s3 = document.getElementById('scene-3');
             const s4 = document.getElementById('scene-4');
             const s5 = document.getElementById('scene-5');
 
-            // Control de aparición de escenas por porcentaje de avance
+            // Control de Activación de Escenas y Micro-Efectos
             if (scrollPercent >= 0 && scrollPercent < 18) {
                 setActiveScene(s1, [s2, s3, s4, s5]);
+                setEnvOpacity(1, 0, 0); // Solo nubes activas
             } else if (scrollPercent >= 18 && scrollPercent < 45) {
                 setActiveScene(s2, [s1, s3, s4, s5]);
+                setEnvOpacity(1, 0, 0); // Siguen las nubes
             } else if (scrollPercent >= 45 && scrollPercent < 72) {
                 setActiveScene(s3, [s1, s2, s4, s5]);
+                setEnvOpacity(0, 1, 0); // Solo estrellas espaciales activas
             } else if (scrollPercent >= 72 && scrollPercent < 90) {
                 setActiveScene(s4, [s1, s2, s3, s5]);
+                setEnvOpacity(0, 0, 1); // Solo partículas de polvo del desierto
             } else if (scrollPercent >= 90) {
                 setActiveScene(s5, [s1, s2, s3, s4]);
+                setEnvOpacity(0, 0, 0.7); // El desierto se atenúa un poco con la foto
             }
         });
 
         function setActiveScene(activeElement, inactiveElements) {
             activeElement.classList.add('active');
             inactiveElements.forEach(el => el.classList.remove('active'));
+        }
+
+        function setEnvOpacity(clouds, stars, dust) {
+            cloudsContainer.style.opacity = clouds;
+            starsContainer.style.opacity = stars;
+            dustContainer.style.opacity = dust;
         }
     </script>
 
