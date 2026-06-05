@@ -11,10 +11,11 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             background-color: #000;
             font-family: 'Arial Black', Impact, sans-serif;
             color: #fff;
+            /* Forzamos al documento a tener la altura de scroll necesaria */
             height: 600vh; 
         }
 
@@ -194,39 +195,32 @@
 <body>
 
     <div class="viewer">
-        <!-- CAPA ÚNICA DE FONDO -->
         <div id="master-bg"></div>
 
-        <!-- CAPAS DE EFECTOS PARTICULAS (DOM GENÉRICO) -->
         <div id="env-clouds" class="ambient-layer"></div>
         <div id="env-stars" class="ambient-layer"></div>
         <div id="env-dust" class="ambient-layer"></div>
 
-        <!-- ESCENA 1: EL LOGO DE ENTRADA -->
         <div id="scene-1" class="scene-element active">
             <h1 class="logo-title">TOY<br><span style="font-size: 2.5rem; color: #fff; text-shadow: -3px -3px 0 #1c355e, 3px -3px 0 #1c355e;">STORY</span></h1>
             <h2 style="font-size: 1.8rem; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">PRESENTA</h2>
         </div>
 
-        <!-- ESCENA 2: LA PRINCESA (CUARTO DE ANDY) -->
         <div id="scene-2" class="scene-element">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
             <div class="character-placeholder">🤠</div> 
         </div>
 
-        <!-- ESCENA 3: LA FECHA (PIZZA PLANETA) -->
         <div id="scene-3" class="scene-element">
             <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
             <div class="character-placeholder">👽</div>
         </div>
 
-        <!-- ESCENA 4: EL LUGAR (EL OESTE) -->
         <div id="scene-4" class="scene-element">
             <p class="story-text" style="color: #1c355e; text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.8rem;">"El Castillo"</span></p>
             <p style="color: #1c355e; font-size: 1.5rem; margin-top: 10px;">A partir de las <span style="font-weight: bold;">3:00 PM</span> ⏰</p>
         </div>
 
-        <!-- ESCENA 5: LA CUMPLEAÑERA Y EL BOTÓN -->
         <div id="scene-5" class="scene-element">
             <div class="photo-frame">
                 <img src="https://via.placeholder.com/220x280?text=Foto+Ivana" alt="Ivana">
@@ -240,12 +234,11 @@
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DINÁMICA DE MICRO-EFECTOS EN EL DOM ---
         const cloudsContainer = document.getElementById('env-clouds');
         const starsContainer = document.getElementById('env-stars');
         const dustContainer = document.getElementById('env-dust');
 
-        // Generar 5 nubes sutiles
+        // Generar nubes
         for (let i = 0; i < 5; i++) {
             let cloud = document.createElement('div');
             cloud.className = 'cloud-particle';
@@ -256,7 +249,7 @@
             cloudsContainer.appendChild(cloud);
         }
 
-        // Generar 35 estrellas espaciales
+        // Generar estrellas
         for (let i = 0; i < 35; i++) {
             let star = document.createElement('div');
             star.className = 'star';
@@ -269,12 +262,13 @@
             starsContainer.appendChild(star);
         }
 
-        // Generar 20 partículas de polvo desértico
+        // Generar polvo desértico (Corregido el error de "2px")
         for (let i = 0; i < 20; i++) {
             let dust = document.createElement('div');
             dust.className = 'dust';
-            dust.style.width = `${Math.random() * 4 + 2px}`;
-            dust.style.height = dust.style.width;
+            let size = Math.random() * 4 + 2; 
+            dust.style.width = `${size}px`;
+            dust.style.height = `${size}px`;
             dust.style.left = `${Math.random() * 100}%`;
             dust.style.animationDuration = `${Math.random() * 4 + 3}s`;
             dust.style.animationDelay = `${Math.random() * 5}s`;
@@ -287,38 +281,37 @@
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const scrollPercent = (scrollTop / docHeight) * 100;
 
-            // Rodillo de color
             const masterBg = document.getElementById('master-bg');
             masterBg.style.backgroundPosition = `center ${scrollPercent}%`;
 
-            // Escenas
             const s1 = document.getElementById('scene-1');
             const s2 = document.getElementById('scene-2');
             const s3 = document.getElementById('scene-3');
             const s4 = document.getElementById('scene-4');
             const s5 = document.getElementById('scene-5');
 
-            // Control de Activación de Escenas y Micro-Efectos
             if (scrollPercent >= 0 && scrollPercent < 18) {
                 setActiveScene(s1, [s2, s3, s4, s5]);
-                setEnvOpacity(1, 0, 0); // Solo nubes activas
+                setEnvOpacity(1, 0, 0);
             } else if (scrollPercent >= 18 && scrollPercent < 45) {
                 setActiveScene(s2, [s1, s3, s4, s5]);
-                setEnvOpacity(1, 0, 0); // Siguen las nubes
+                setEnvOpacity(1, 0, 0);
             } else if (scrollPercent >= 45 && scrollPercent < 72) {
                 setActiveScene(s3, [s1, s2, s4, s5]);
-                setEnvOpacity(0, 1, 0); // Solo estrellas espaciales activas
+                setEnvOpacity(0, 1, 0);
             } else if (scrollPercent >= 72 && scrollPercent < 90) {
                 setActiveScene(s4, [s1, s2, s3, s5]);
-                setEnvOpacity(0, 0, 1); // Solo partículas de polvo del desierto
+                setEnvOpacity(0, 0, 1);
             } else if (scrollPercent >= 90) {
                 setActiveScene(s5, [s1, s2, s3, s4]);
-                setEnvOpacity(0, 0, 0.7); // El desierto se atenúa un poco con la foto
+                setEnvOpacity(0, 0, 0.7);
             }
         });
 
         function setActiveScene(activeElement, inactiveElements) {
             activeElement.classList.add('active');
+            inactiveElements.forEach(el => el.classList.remove('remove'));
+            // Pequeño truco para limpiar clases viejas del DOM de forma robusta
             inactiveElements.forEach(el => el.classList.remove('active'));
         }
 
