@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Aventura de Ivana - Toy Story</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos base del Collage interactivo */
+        .collage-img {
+            position: absolute;
+            max-height: 35vh;
+            object-fit: contain;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        
+        .left-side { left: 4%; }
+        .right-side { right: 4%; }
+
+        /* Contenedor central protegido para que el texto siempre sea legible */
+        .text-container {
+            width: 100%;
+            max-width: 450px;
+            z-index: 10;
+            padding: 20px;
+            position: relative;
+        }
+
+        @media (max-width: 600px) {
+            .collage-img {
+                max-height: 22vh; /* Escala perfecta para pantallas móviles */
+            }
+            .left-side { left: 1%; }
+            .right-side { right: 1%; }
+        }
+    </style>
 </head>
 <body>
 
@@ -16,34 +48,61 @@
         <div id="env-dust" class="ambient-layer"></div>
 
         <div id="scene-1" class="scene-element active">
-            <h1 class="logo-title">TOY<br><span style="font-size: 2.5rem; color: #fff; text-shadow: -3px -3px 0 #1c355e, 3px -3px 0 #1c355e;">STORY</span></h1>
-            <h2 style="font-size: 1.8rem; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">PRESENTA</h2>
+            <div class="text-container">
+                <img src="assets/logo.png" id="main-logo" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 10px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)); transition: transform 0.1s ease-out;">
+                <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 2px;">PRESENTA</h2>
+            </div>
         </div>
 
         <div id="scene-2" class="scene-element">
-            <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
-            <div class="character-placeholder">🤠</div> 
+            <img src="assets/wody.png" id="col-woody" class="collage-img left-side" style="bottom: 12%;" alt="Woody">
+            <img src="assets/pelota.png" id="col-pelota" class="collage-img left-side" style="bottom: 2%; max-height: 12vh;" alt="Pelota Pixar">
+            
+            <img src="assets/cara-de-papa.png" id="col-potato" class="collage-img right-side" style="bottom: 15%; max-height: 25vh;" alt="Cara de Papa">
+
+            <div class="text-container">
+                <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
+            </div>
         </div>
 
         <div id="scene-3" class="scene-element">
-            <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
-            <div class="character-placeholder">👽</div>
+            <img src="assets/buzz-running.png" id="col-buzz" class="collage-img right-side" style="top: 15%;" alt="Buzz">
+            <img src="assets/control.png" id="col-control" class="collage-img right-side" style="top: 5%; max-height: 10vh;" alt="Control">
+            
+            <img src="assets/tresmarcianos.png" id="col-aliens" class="collage-img left-side" style="bottom: 10%; max-height: 22vh;" alt="Aliens">
+
+            <div class="text-container">
+                <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
+            </div>
         </div>
 
         <div id="scene-4" class="scene-element">
-            <p class="story-text" style="color: #1c355e; text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.8rem;">"El Castillo"</span></p>
-            <p style="color: #1c355e; font-size: 1.5rem; margin-top: 10px;">A partir de las <span style="font-weight: bold;">3:00 PM</span> ⏰</p>
+            <img src="assets/png-transparent-toy-story-jessie-sheriff-woody-buzz-lightyear-bullseye-toy-story-bullseye-illustration-horse-horse-tack-cartoon-thumbnail.png" id="col-bullseye" class="collage-img left-side" style="bottom: 10%; max-height: 30vh;" alt="Tiro al Blanco">
+            <img src="assets/png-transparent-green-tree-illustration-cactaceae-cactus-in-the-desert-euclidean-desert-cactus-plant-stem-flower-plants-thumbnail.png" id="col-cactus" class="collage-img left-side" style="bottom: 2%; max-height: 16vh; opacity: 0.8;" alt="Cactus">
+
+            <img src="assets/png-transparent-jessy-from-toy-story-jessie-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-toy-story-jessie-cartoons-cartoon-pixar-thumbnail.png" id="col-jessie" class="collage-img right-side" style="bottom: 15%;" alt="Jessie">
+
+            <div class="text-container">
+                <p class="story-text" style="color: #1c355e; text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.8rem;">"El Castillo"</span></p>
+                <p style="color: #1c355e; font-size: 1.5rem; margin-top: 10px;">A partir de las <span style="font-weight: bold;">3:00 PM</span> ⏰</p>
+            </div>
         </div>
 
         <div id="scene-5" class="scene-element">
-            <div class="photo-frame">
-                <img src="https://via.placeholder.com/220x280?text=Foto+Ivana" alt="Ivana">
-            </div>
-            <h2 style="font-size: 1.8rem; margin-bottom: 20px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5);">¿TE UNES A LA AVENTURA?</h2>
+            <img src="assets/rex.png" id="col-rex" class="collage-img left-side" style="bottom: 5%; max-height: 28vh; transform: scaleX(-1);" alt="Rex">
             
-            <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
-                🚀 CONFIRMAR ASISTENCIA
-            </a>
+            <img src="assets/png-transparent-toy-story-pig-character-illustration-toy-story-2-buzz-lightyear-to-the-rescue-sheriff-woody-jessie-slinky-dog-john-tory-mammal-buzz-lightyear-pixar-thumbnail.png" id="col-hamm" class="collage-img right-side" style="bottom: 8%; max-height: 18vh;" alt="Hamm">
+
+            <div class="text-container" style="display: flex; flex-direction: column; align-items: center;">
+                <div class="photo-frame">
+                    <img src="assets/2fb0cbfe5d04d5225a6994f7b3242fbe.jpg" alt="Ivana">
+                </div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 20px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5); width: 100%;">¿TE UNES A LA AVENTURA?</h2>
+                
+                <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
+                    🚀 CONFIRMAR ASISTENCIA
+                </a>
+            </div>
         </div>
     </div>
 
