@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Aventura de Ivana - Toy Story</title>
     <style>
-        /* --- DISEÑO SIMPLIFICADO Y DIRECTO --- */
         * {
             margin: 0;
             padding: 0;
@@ -16,42 +15,51 @@
             background: linear-gradient(to bottom, #4ba3e3, #1a113c, #ff9e43, #ff6b6b);
             font-family: 'Arial Black', Impact, sans-serif;
             color: #fff;
-            text-align: center;
+            overflow-x: hidden;
         }
 
-        /* Bloques verticales sencillos para que no se amontone nada */
+        /* Bloques de sección que ocupan toda la pantalla */
         .seccion {
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 1fr;
             align-items: center;
+            justify-items: center;
             padding: 40px 20px;
             position: relative;
         }
 
+        /* Caja de texto del centro */
         .contenedor-texto {
-            max-width: 450px;
-            background: rgba(0, 0, 0, 0.4);
+            max-width: 420px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
             padding: 30px;
             border-radius: 20px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
+            text-align: center;
             z-index: 10;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        /* Las imágenes se quedan fijas en su bloque, sin trucos raros de JS */
-        .juguete {
-            max-height: 30vh;
+        /* --- ESTILOS PARA QUE LOS JUGUETES FLOTEN A LOS LADOS --- */
+        .juguete-flotante {
+            position: absolute;
+            max-height: 32vh;
             object-fit: contain;
-            margin: 15px auto;
-            display: block;
-            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5));
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+            z-index: 5;
         }
+
+        /* Posiciones fijas en los extremos de la pantalla */
+        .izquierda-arriba  { left: 5%; top: 10%; }
+        .izquierda-abajo   { left: 5%; bottom: 10%; }
+        .derecha-arriba    { right: 5%; top: 10%; }
+        .derecha-abajo     { right: 5%; bottom: 10%; }
 
         .story-text {
-            font-size: 2rem;
+            font-size: 2.2rem;
             line-height: 1.3;
-            margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
@@ -88,56 +96,76 @@
             font-weight: bold;
             margin-top: 15px;
         }
+
+        /* Adaptación perfecta para celulares */
+        @media (max-width: 768px) {
+            .juguete-flotante {
+                position: relative;
+                max-height: 20vh;
+                display: inline-block;
+                margin: 10px 5px;
+                left: auto !important;
+                right: auto !important;
+                top: auto !important;
+                bottom: auto !important;
+            }
+            .seccion {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ESCENA 1: EL LOGO -->
     <div class="seccion">
-        <img src="assets/logo.png" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 20px;">
-        <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">PRESENTA</h2>
+        <div style="text-align: center;">
+            <img src="assets/logo.png" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));">
+            <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 2px;">PRESENTA</h2>
+        </div>
     </div>
 
-    <!-- ESCENA 2: LA PRINCESA -->
     <div class="seccion">
+        <img src="assets/wody.png" class="juguete-flotante izquierda-arriba" alt="Woody">
+        <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 12vh;" alt="Pelota Pixar">
+        <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
+
         <div class="contenedor-texto">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
-            <img src="assets/wody.png" class="juguete" alt="Woody">
-            <img src="assets/cara-de-papa.png" class="juguete" alt="Cara de Papa" style="max-height: 20vh;">
-            <img src="assets/pelota.png" class="juguete" alt="Pelota Pixar" style="max-height: 10vh;">
         </div>
     </div>
 
-    <!-- ESCENA 3: LA FECHA -->
     <div class="seccion">
+        <img src="assets/buzz-running.png" class="juguete-flotante derecha-arriba" alt="Buzz">
+        <img src="assets/control.png" class="juguete-flotante derecha-abajo" style="max-height: 12vh;" alt="Control">
+        <img src="assets/tresmarcianos.png" class="juguete-flotante izquierda-abajo" alt="Aliens">
+
         <div class="contenedor-texto">
             <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
-            <img src="assets/buzz-running.png" class="juguete" alt="Buzz">
-            <img src="assets/tresmarcianos.png" class="juguete" alt="Aliens" style="max-height: 18vh;">
-            <img src="assets/control.png" class="juguete" alt="Control" style="max-height: 10vh;">
         </div>
     </div>
 
-    <!-- ESCENA 4: EL LUGAR -->
     <div class="seccion">
+        <img src="assets/bullseye.png" class="juguete-flotante izquierda-arriba" alt="Tiro al Blanco">
+        <img src="assets/cactus.png" class="juguete-flotante izquierda-abajo" style="max-height: 16vh;" alt="Cactus">
+        <img src="assets/jessie.png" class="juguete-flotante derecha-abajo" alt="Jessie">
+
         <div class="contenedor-texto">
             <p class="story-text" style="text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
-            <p style="font-size: 1.4rem; margin: 10px 0;">A partir de las <strong>3:00 PM</strong> ⏰</p>
-            <img src="assets/jessie.png" class="juguete" alt="Jessie">
-            <img src="assets/bullseye.png" class="juguete" alt="Tiro al Blanco">
-            <img src="assets/cactus.png" class="juguete" alt="Cactus" style="max-height: 12vh;">
+            <p style="font-size: 1.4rem; margin: 15px 0; color: #fff;">A partir de las <strong>3:00 PM</strong> ⏰</p>
         </div>
     </div>
 
-    <!-- ESCENA 5: LA CUMPLEAÑERA Y BOTÓN -->
     <div class="seccion">
+        <img src="assets/rex.png" class="juguete-flotante izquierda-abajo" style="transform: scaleX(-1);" alt="Rex">
+        <img src="assets/hamm.png" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
+
         <div class="contenedor-texto">
             <div class="photo-frame">
                 <img src="assets/ivana.jpg" class="real-photo" alt="Ivana">
             </div>
-            <p class="story-text" style="font-size: 1.6rem;">¿TE UNES A LA AVENTURA?</p>
-            <img src="assets/rex.png" class="juguete" alt="Rex" style="max-height: 22vh;">
-            <img src="assets/hamm.png" class="juguete" alt="Hamm" style="max-height: 15vh;">
+            <p class="story-text" style="font-size: 1.6rem; margin-bottom: 15px;">¿TE UNES A LA AVENTURA?</p>
             
             <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
                 🚀 CONFIRMAR ASISTENCIA
