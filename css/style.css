@@ -1,0 +1,184 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color: #000;
+    font-family: 'Arial Black', Impact, sans-serif;
+    color: #fff;
+    height: 600vh; 
+}
+
+/* ----- EL VISOR FIJO ----- */
+.viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* ----- FONDO MAESTRO CONTINUO ----- */
+#master-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, 
+        #4ba3e3 0%,   
+        #7bc6f6 15%,
+        #1a113c 40%,  
+        #0b071e 65%,
+        #ff9e43 85%,  
+        #ff6b6b 100%
+    );
+    background-size: 100% 600%;
+    background-position: top center;
+    transition: background-position 0.4s ease-out;
+}
+
+/* ----- EFECTOS AMBIENTALES POR CAPAS ----- */
+.ambient-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 2;
+}
+
+/* DETALLE 1: Nubes del cuarto de Andy */
+.cloud-particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    width: 80px;
+    height: 25px;
+    border-radius: 20px;
+    animation: drift linear infinite;
+}
+.cloud-particle::before {
+    content: ''; position: absolute; background: rgba(255, 255, 255, 0.4);
+    width: 40px; height: 40px; top: -20px; left: 10px; border-radius: 50%;
+}
+@keyframes drift {
+    0% { left: -100px; }
+    100% { left: 100vw; }
+}
+
+/* DETALLE 2: Estrellas de Pizza Planeta */
+.star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: blink infinite ease-in-out;
+}
+@keyframes blink {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); background: #00ffcc; }
+}
+
+/* DETALLE 3: Polvo dorado del Desierto */
+.dust {
+    position: absolute;
+    background: rgba(255, 225, 100, 0.6);
+    border-radius: 50%;
+    animation: rise infinite linear;
+}
+@keyframes rise {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+}
+
+/* ----- ELEMENTOS NARRATIVOS ----- */
+.scene-element {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transform: scale(0.85) translateY(30px);
+    transition: opacity 0.7s ease-in-out, transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.scene-element.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+}
+
+/* ----- TIPOGRAFÍA ----- */
+.logo-title {
+    font-size: 3.5rem;
+    color: #fde100;
+    text-shadow: -4px -4px 0 #e41a22, 4px -4px 0 #e41a22, -4px 4px 0 #e41a22, -4px 4px 0 #e41a22, 6px 6px 0 #1c355e;
+    letter-spacing: 2px;
+    line-height: 1.1;
+}
+
+.story-text {
+    font-size: 2.2rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.highlight-blue { color: #fde100; text-shadow: 2px 2px 0 #1c355e, -2px -2px 0 #1c355e; }
+.highlight-green { color: #39ff14; text-shadow: 0 0 10px rgba(57,255,20,0.8); }
+
+.character-placeholder {
+    font-size: 5rem;
+    margin-top: 20px;
+    animation: float 3s ease-in-out infinite;
+}
+
+.photo-frame {
+    width: 220px;
+    height: 280px;
+    background: #eee;
+    border: 8px solid #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-rsvp {
+    display: inline-block;
+    background: #fde100;
+    color: #1c355e;
+    border: 4px solid #e41a22;
+    padding: 15px 35px;
+    font-size: 1.4rem;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 6px 0 #bc1319;
+    cursor: pointer;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
