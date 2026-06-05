@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Parallax - Ivana</title>
+    <title>La Aventura de Ivana - Toy Story</title>
     <style>
         * {
             margin: 0;
@@ -12,111 +12,111 @@
         }
 
         body {
-            background-color: #111;
+            background-color: #000;
             font-family: 'Arial Black', Impact, sans-serif;
             color: #fff;
-            overflow-x: hidden;
+            /* Controlamos la longitud del scroll para dar tiempo a cada escena */
+            height: 500vh; 
         }
 
-        /* ----- CONTENEDOR GENERAL PARALLAX ----- */
-        .parallax-section {
-            position: relative;
+        /* ----- CONTENEDOR FIJO QUE MANTIENE LA ESCENA EN PANTALLA ----- */
+        .viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100vw;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
             overflow: hidden;
-            padding: 20px;
-        }
-
-        /* ----- SECCIÓN 1: PIZZA PLANETA (BUZZ) ----- */
-        #pizza-planet {
-            /* Cuando tengas tu imagen la pones en assets/fondo_espacio.jpg */
-            background: linear-gradient(135deg, #0f0c20 0%, #15102a 100%);
-            z-index: 3;
-        }
-
-        .alien-layer {
-            position: absolute;
-            font-size: 4rem;
-            pointer-events: none;
-            transition: transform 0.1s ease-out;
             z-index: 1;
         }
-        /* Posiciones iniciales de los marcianitos flotantes */
-        #alien1 { top: 30%; left: 15%; }
-        #alien2 { top: 60%; right: 15%; }
 
-        /* ----- SECCIÓN 2: DATOS DEL EVENTO ----- */
-        #event-details {
-            background: #ffffff;
-            color: #1c355e;
-            z-index: 4;
-            box-shadow: 0px -20px 40px rgba(0,0,0,0.5), 0px 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .invitation-card {
-            background: #ffffff;
-            border: 8px solid #e41a22;
-            border-radius: 25px;
-            padding: 30px 20px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s ease-out;
-        }
-
-        .toy-title {
-            font-size: 3rem;
-            color: #fde100;
-            text-shadow: -3px -3px 0 #e41a22, 3px -3px 0 #e41a22, -3px 3px 0 #e41a22, 3px 3px 0 #e41a22, 5px 5px 0 #1c355e;
-            margin-bottom: 5px;
-        }
-
-        .info-box {
-            background: #f4f9fd;
-            border: 3px dashed #4ba3e3;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-
-        .info-box h3 { color: #e41a22; font-size: 1.1rem; margin-bottom: 5px; }
-        .info-box p { font-size: 1.2rem; font-weight: bold; }
-
-        /* ----- SECCIÓN 3: EL DESIERTO (WOODY) + CUMPLEAÑERA ----- */
-        #woody-desert {
-            /* Cuando tengas tu imagen del oeste la pones en assets/fondo_desierto.jpg */
-            background: linear-gradient(to bottom, #ff9e43 0%, #ff6b6b 100%);
-            z-index: 3;
-        }
-
-        .desert-element {
+        /* ----- CAPAS DE FONDOS (ESCENARIOS) ----- */
+        .bg-layer {
             position: absolute;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: 200px;
-            pointer-events: none;
-            text-align: center;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
         }
 
-        /* Espacio reservado para la foto de Ivana al final */
-        .photo-frame {
-            width: 200px;
-            height: 250px;
-            background: #eee;
-            border: 6px solid #fff;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
+        /* Escenario 1: Cuarto de Andy */
+        #bg-andy {
+            background: linear-gradient(to bottom, #4ba3e3 0%, #7bc6f6 100%);
+            opacity: 1; /* Inicia visible */
+        }
+
+        /* Escenario 2: Pizza Planeta */
+        #bg-pizza {
+            background: linear-gradient(135deg, #0f0c20 0%, #1c143a 100%);
+        }
+
+        /* Escenario 3: El Oeste */
+        #bg-desert {
+            background: linear-gradient(to bottom, #ff9e43 0%, #ff6b6b 100%);
+        }
+
+        /* ----- ELEMENTOS NARRATIVOS (TEXTOS Y PERSONAJES) ----- */
+        .scene-element {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
+            padding: 20px;
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+        }
+
+        /* Cuando la escena se activa mediante JavaScript */
+        .scene-element.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* ----- ESTILOS DE TIPOGRAFÍA TEMÁTICA ----- */
+        .logo-title {
+            font-size: 3.5rem;
+            color: #fde100;
+            text-shadow: -4px -4px 0 #e41a22, 4px -4px 0 #e41a22, -4px 4px 0 #e41a22, 4px 4px 0 #e41a22, 6px 6px 0 #1c355e;
+            letter-spacing: 2px;
+            line-height: 1.1;
+        }
+
+        .story-text {
+            font-size: 2.2rem;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .highlight-blue { color: #fde100; text-shadow: 2px 2px 0 #1c355e, -2px -2px 0 #1c355e, 2px -2px 0 #1c355e, -2px 2px 0 #1c355e; }
+        .highlight-green { color: #39ff14; text-shadow: 0 0 10px rgba(57,255,20,0.8); }
+
+        /* ----- RESERVA DE IMÁGENES / PERSONAJES ----- */
+        .character-placeholder {
+            font-size: 5rem;
+            margin-top: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .photo-frame {
+            width: 220px;
+            height: 280px;
+            background: #eee;
+            border: 8px solid #fff;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            margin-bottom: 25px;
             overflow: hidden;
-            transition: transform 0.1s ease-out;
         }
 
         .photo-frame img {
@@ -130,82 +130,131 @@
             background: #fde100;
             color: #1c355e;
             border: 4px solid #e41a22;
-            padding: 15px 30px;
-            font-size: 1.3rem;
+            padding: 15px 35px;
+            font-size: 1.4rem;
             border-radius: 50px;
             text-decoration: none;
-            box-shadow: 0 5px 0 #bc1319;
+            box-shadow: 0 6px 0 #bc1319;
             cursor: pointer;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
     </style>
 </head>
 <body>
 
-    <section id="pizza-planet" class="parallax-section">
-        <h1 id="space-text" style="font-size: 3.5rem; text-align: center; text-shadow: 0 0 10px #00ffcc;">¡PREPÁRATE PARA EL DESPEGUE!</h1>
-        <p style="font-size: 1.5rem; margin-top: 20px; color: #00ffcc;">Desliza hacia abajo 🚀</p>
+    <!-- VISOR FIJO (LA PANTALLA DE LA PELÍCULA) -->
+    <div class="viewer">
         
-        <div id="alien1" class="alien-layer">👽</div>
-        <div id="alien2" class="alien-layer">🚀</div>
-    </section>
+        <!-- CAPAS DE ESCENARIOS ESCENOGRÁFICOS -->
+        <div id="bg-andy" class="bg-layer" style="opacity: 1;"></div>
+        <div id="bg-pizza" class="bg-layer"></div>
+        <div id="bg-desert" class="bg-layer"></div>
 
-    <section id="event-details" class="parallax-section">
-        <div class="invitation-card" id="main-card">
-            <h1 class="toy-title">IVANA</h1>
-            <h2 style="color: #1c355e; margin-bottom: 25px;">¡Cumple 3 Años!</h2>
-
-            <div class="info-box">
-                <h3>📅 ¿CUÁNDO ES?</h3>
-                <p>Sábado, 4 de Julio de 2026</p>
-            </div>
-            <div class="info-box">
-                <h3>⏰ ¿A QUÉ HORA?</h3>
-                <p>A partir de las 3:00 PM</p>
-            </div>
-            <div class="info-box">
-                <h3>📍 ¿DÓNDE ES?</h3>
-                <p>Salón "El Castillo"</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="woody-desert" class="parallax-section">
-        <div class="photo-frame" id="ivana-photo">
-            <img src="https://via.placeholder.com/200x250?text=Foto+Ivana" alt="Ivana Cumpleañera">
+        <!-- ESCENA 1: EL LOGO DE ENTRADA -->
+        <div id="scene-1" class="scene-element active">
+            <h1 class="logo-title">TOY<br><span style="font-size: 2.5rem; color: #fff; text-shadow: -3px -3px 0 #1c355e, 3px -3px 0 #1c355e, -3px 3px 0 #1c355e, 3px 3px 0 #1c355e;">STORY</span></h1>
+            <h2 style="font-size: 1.8rem; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">PRESENTA</h2>
         </div>
 
-        <h2 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 25px; text-align: center;">¡TIENES UNA MISIÓN EN LA FIESTA!</h2>
+        <!-- ESCENA 2: LA PRINCESA (CUARTO DE ANDY) -->
+        <div id="scene-2" class="scene-element">
+            <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
+            <!-- Cuando tengas la imagen de Woody reemplazas este emoji por un <img> -->
+            <div class="character-placeholder">🤠</div> 
+        </div>
 
-        <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
-            🤠 CONFIRMAR ASISTENCIA
-        </a>
-    </section>
+        <!-- ESCENA 3: LA FECHA (PIZZA PLANETA) -->
+        <div id="scene-3" class="scene-element">
+            <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
+            <!-- Cuando tengas la de Buzz / Aliens reemplazas aquí -->
+            <div class="character-placeholder">👽</div>
+        </div>
 
+        <!-- ESCENA 4: EL LUGAR (EL OESTE) -->
+        <div id="scene-4" class="scene-element">
+            <p class="story-text" style="color: #1c355e; text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.8rem;">"El Castillo"</span></p>
+            <p style="color: #1c355e; font-size: 1.5rem; margin-top: 10px;">A partir de las <span style="font-weight: bold;">3:00 PM</span> ⏰</p>
+        </div>
+
+        <!-- ESCENA 5: LA CUMPLEAÑERA Y EL BOTÓN -->
+        <div id="scene-5" class="scene-element">
+            <div class="photo-frame">
+                <!-- Reemplaza con assets/ivana.jpg cuando guardes su foto real -->
+                <img src="https://via.placeholder.com/220x280?text=Foto+Ivana" alt="Ivana">
+            </div>
+            <h2 style="font-size: 1.8rem; margin-bottom: 20px; text-shadow: 2px 2px 6px rgba(0,0,0,0.5);">¿TE UNES A LA AVENTURA?</h2>
+            
+            <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
+                🚀 CONFIRMAR ASISTENCIA
+            </a>
+        </div>
+
+    </div>
+
+    <!-- CONTROLADOR DEL DOM POR PORCENTAJE DE SCROLL -->
     <script>
         window.addEventListener('scroll', () => {
-            // Guardamos el valor actual del scroll vertical
-            const scrollValue = window.scrollY;
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            // Sacamos un porcentaje de 0 a 100 de cuánto scroll lleva la página
+            const scrollPercent = (scrollTop / docHeight) * 100;
 
-            // 1. Efecto Parallax en la Sección Espacial (Mover elementos del DOM a ritmos diferentes)
-            const alien1 = document.getElementById('alien1');
-            const alien2 = document.getElementById('alien2');
-            const spaceText = document.getElementById('space-text');
+            // Selección de capas de fondo y escenas del DOM
+            const bgAndy = document.getElementById('bg-andy');
+            const bgPizza = document.getElementById('bg-pizza');
+            const bgDesert = document.getElementById('bg-desert');
 
-            // El texto espacial sube un poco más lento que el scroll natural
-            spaceText.style.transform = `translateY(${scrollValue * 0.4}px)`;
-            
-            // Los elementos flotantes se desplazan hacia arriba de forma exagerada dando profundidad
-            alien1.style.transform = `translateY(${-scrollValue * 0.6}px) rotate(${scrollValue * 0.2}deg)`;
-            alien2.style.transform = `translateY(${-scrollValue * 0.3}px) rotate(${-scrollValue * 0.1}deg)`;
+            const s1 = document.getElementById('scene-1');
+            const s2 = document.getElementById('scene-2');
+            const s3 = document.getElementById('scene-3');
+            const s4 = document.getElementById('scene-4');
+            const s5 = document.getElementById('scene-5');
 
-            // 2. Efecto Parallax para la Foto en el desierto (Aparece flotando sutilmente)
-            const ivanaPhoto = document.getElementById('ivana-photo');
-            // Calculamos su movimiento relativo al final del scroll
-            if(scrollValue > window.innerHeight * 1.2) {
-                let desertScroll = scrollValue - (window.innerHeight * 1.2);
-                ivanaPhoto.style.transform = `translateY(${-desertScroll * 0.15}px)`;
+            // --- REGLAS DE LA LÍNEA DEL TIEMPO (SCROLL) ---
+
+            // Escena 1: El Logo (0% a 20%)
+            if (scrollPercent >= 0 && scrollPercent < 20) {
+                setActiveScene(s1, [s2, s3, s4, s5]);
+                setFunds(1, 0, 0); // Solo fondo Andy
+            } 
+            // Escena 2: La Princesa (20% a 40%)
+            else if (scrollPercent >= 20 && scrollPercent < 45) {
+                setActiveScene(s2, [s1, s3, s4, s5]);
+                setFunds(1, 0, 0); // Sigue fondo Andy (Cuarto)
+            } 
+            // Escena 3: Fecha en Pizza Planeta (45% a 70%)
+            else if (scrollPercent >= 45 && scrollPercent < 70) {
+                setActiveScene(s3, [s1, s2, s4, s5]);
+                setFunds(0, 1, 0); // Cambia a fondo Espacial
+            } 
+            // Escena 4: El Salón Castillo (70% a 88%)
+            else if (scrollPercent >= 70 && scrollPercent < 88) {
+                setActiveScene(s4, [s1, s2, s3, s5]);
+                setFunds(0, 0, 1); // Cambia a fondo Desierto
+            } 
+            // Escena 5: Foto Final y Cierre (88% a 100%)
+            else if (scrollPercent >= 88) {
+                setActiveScene(s5, [s1, s2, s3, s4]);
+                setFunds(0, 0, 1); // Se queda en el desierto con la foto
             }
         });
+
+        // Función auxiliar del DOM para encender una escena y apagar las demás
+        function setActiveScene(activeElement, inactiveElements) {
+            activeElement.classList.add('active');
+            inactiveElements.forEach(el => el.classList.remove('active'));
+        }
+
+        // Función auxiliar para fundir suavemente los escenarios de fondo
+        function setFunds(andy, pizza, desert) {
+            document.getElementById('bg-andy').style.opacity = andy;
+            document.getElementById('bg-pizza').style.opacity = pizza;
+            document.getElementById('bg-desert').style.opacity = desert;
+        }
     </script>
 
 </body>
