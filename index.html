@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Toy Story - Ivana</title>
+    <title>Invitación Parallax - Ivana</title>
     <style>
         * {
             margin: 0;
@@ -12,63 +12,51 @@
         }
 
         body {
-            overflow-x: hidden;
-            background: linear-gradient(to bottom, #4ba3e3 0%, #7bc6f6 100%);
+            background-color: #111;
             font-family: 'Arial Black', Impact, sans-serif;
-            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ----- CONTENEDOR GENERAL PARALLAX ----- */
+        .parallax-section {
             position: relative;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            overflow: hidden;
             padding: 20px;
         }
 
-        /* ----- FONDO DE NUBES ANIMADAS ----- */
-        .sky {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+        /* ----- SECCIÓN 1: PIZZA PLANETA (BUZZ) ----- */
+        #pizza-planet {
+            /* Cuando tengas tu imagen la pones en assets/fondo_espacio.jpg */
+            background: linear-gradient(135deg, #0f0c20 0%, #15102a 100%);
+            z-index: 3;
+        }
+
+        .alien-layer {
+            position: absolute;
+            font-size: 4rem;
             pointer-events: none;
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+        }
+        /* Posiciones iniciales de los marcianitos flotantes */
+        #alien1 { top: 30%; left: 15%; }
+        #alien2 { top: 60%; right: 15%; }
+
+        /* ----- SECCIÓN 2: DATOS DEL EVENTO ----- */
+        #event-details {
+            background: #ffffff;
+            color: #1c355e;
+            z-index: 4;
+            box-shadow: 0px -20px 40px rgba(0,0,0,0.5), 0px 20px 40px rgba(0,0,0,0.5);
         }
 
-        .cloud {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            width: 120px;
-            height: 40px;
-            border-radius: 20px;
-            animation: moveClouds linear infinite;
-            left: -150px;
-        }
-
-        .cloud::before, .cloud::after {
-            content: '';
-            position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 50%;
-        }
-
-        .cloud::before { width: 50px; height: 50px; top: -25px; left: 15px; }
-        .cloud::after { width: 70px; height: 70px; top: -45px; left: 40px; }
-
-        .c1 { top: 8%; transform: scale(0.7); animation-duration: 25s; animation-delay: 0s; }
-        .c2 { top: 18%; transform: scale(0.9); animation-duration: 32s; animation-delay: 4s; }
-        .c3 { top: 28%; transform: scale(0.6); animation-duration: 20s; animation-delay: 10s; }
-        .c4 { top: 12%; transform: scale(0.8); animation-duration: 28s; animation-delay: 15s; }
-        .c5 { top: 45%; transform: scale(1.0); animation-duration: 35s; animation-delay: 2s; }
-        .c6 { top: 62%; transform: scale(0.75); animation-duration: 24s; animation-delay: 8s; }
-        .c7 { top: 78%; transform: scale(0.9); animation-duration: 30s; animation-delay: 14s; }
-        .c8 { top: 85%; transform: scale(0.65); animation-duration: 22s; animation-delay: 19s; }
-
-        @keyframes moveClouds {
-            0% { left: -150px; }
-            100% { left: 100vw; }
-        }
-
-        /* ----- CONTENEDOR PRINCIPAL ----- */
         .invitation-card {
             background: #ffffff;
             border: 8px solid #e41a22;
@@ -77,27 +65,15 @@
             max-width: 450px;
             width: 100%;
             text-align: center;
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 2;
-            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s ease-out;
         }
 
         .toy-title {
             font-size: 3rem;
             color: #fde100;
             text-shadow: -3px -3px 0 #e41a22, 3px -3px 0 #e41a22, -3px 3px 0 #e41a22, 3px 3px 0 #e41a22, 5px 5px 0 #1c355e;
-            letter-spacing: 1px;
             margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .toy-subtitle {
-            font-size: 1.4rem;
-            color: #1c355e;
-            margin-bottom: 25px;
-            font-family: sans-serif;
-            font-weight: bold;
         }
 
         .info-box {
@@ -108,184 +84,128 @@
             margin-bottom: 15px;
         }
 
-        .info-box h3 {
-            color: #e41a22;
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
+        .info-box h3 { color: #e41a22; font-size: 1.1rem; margin-bottom: 5px; }
+        .info-box p { font-size: 1.2rem; font-weight: bold; }
+
+        /* ----- SECCIÓN 3: EL DESIERTO (WOODY) + CUMPLEAÑERA ----- */
+        #woody-desert {
+            /* Cuando tengas tu imagen del oeste la pones en assets/fondo_desierto.jpg */
+            background: linear-gradient(to bottom, #ff9e43 0%, #ff6b6b 100%);
+            z-index: 3;
         }
 
-        .info-box p {
-            color: #333333;
-            font-size: 1.2rem;
-            font-family: sans-serif;
-            font-weight: 600;
-        }
-
-        .btn-rsvp {
-            display: block;
+        .desert-element {
+            position: absolute;
+            bottom: 0;
             width: 100%;
-            background: #fde100;
-            color: #1c355e;
-            border: 4px solid #e41a22;
-            padding: 15px 20px;
-            font-size: 1.3rem;
-            border-radius: 50px;
-            text-decoration: none;
-            margin-top: 25px;
-            box-shadow: 0 5px 0 #bc1319;
-            transition: all 0.1s ease;
-            cursor: pointer;
+            height: 200px;
+            pointer-events: none;
             text-align: center;
         }
 
-        .btn-rsvp:active {
-            transform: translateY(4px);
-            box-shadow: 0 1px 0 #bc1319;
-        }
-
-        .thanks-message {
-            display: none;
-            background: #e6f7ed;
-            border: 3px solid #2e7d32;
-            color: #1b5e20;
+        /* Espacio reservado para la foto de Ivana al final */
+        .photo-frame {
+            width: 200px;
+            height: 250px;
+            background: #eee;
+            border: 6px solid #fff;
             border-radius: 15px;
-            padding: 12px;
-            margin-top: 20px;
-            font-family: sans-serif;
-            font-size: 1.1rem;
-            font-weight: bold;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        /* ----- BOTÓN FLOTANTE DE MÚSICA ----- */
-        .music-control {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 60px;
-            height: 60px;
-            background: #1c355e;
-            border: 4px solid #fde100;
-            border-radius: 50%;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
+            transition: transform 0.1s ease-out;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-rsvp {
+            display: inline-block;
+            background: #fde100;
+            color: #1c355e;
+            border: 4px solid #e41a22;
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 0 #bc1319;
             cursor: pointer;
-            z-index: 10;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-        }
-
-        .music-icon { font-size: 1.8rem; }
-
-        @keyframes popIn {
-            0% { transform: scale(0); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="sky">
-        <div class="cloud c1"></div>
-        <div class="cloud c2"></div>
-        <div class="cloud c3"></div>
-        <div class="cloud c4"></div>
-        <div class="cloud c5"></div>
-        <div class="cloud c6"></div>
-        <div class="cloud c7"></div>
-        <div class="cloud c8"></div>
-    </div>
+    <section id="pizza-planet" class="parallax-section">
+        <h1 id="space-text" style="font-size: 3.5rem; text-align: center; text-shadow: 0 0 10px #00ffcc;">¡PREPÁRATE PARA EL DESPEGUE!</h1>
+        <p style="font-size: 1.5rem; margin-top: 20px; color: #00ffcc;">Desliza hacia abajo 🚀</p>
+        
+        <div id="alien1" class="alien-layer">👽</div>
+        <div id="alien2" class="alien-layer">🚀</div>
+    </section>
 
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-    </audio>
+    <section id="event-details" class="parallax-section">
+        <div class="invitation-card" id="main-card">
+            <h1 class="toy-title">IVANA</h1>
+            <h2 style="color: #1c355e; margin-bottom: 25px;">¡Cumple 3 Años!</h2>
 
-    <div class="music-control" id="music-btn" onclick="toggleMusic()">
-        <span class="music-icon" id="music-status">🔈</span>
-    </div>
+            <div class="info-box">
+                <h3>📅 ¿CUÁNDO ES?</h3>
+                <p>Sábado, 4 de Julio de 2026</p>
+            </div>
+            <div class="info-box">
+                <h3>⏰ ¿A QUÉ HORA?</h3>
+                <p>A partir de las 3:00 PM</p>
+            </div>
+            <div class="info-box">
+                <h3>📍 ¿DÓNDE ES?</h3>
+                <p>Salón "El Castillo"</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="invitation-card" onclick="startAudioOnInteraction()">
-        <h1 class="toy-title">IVANA</h1>
-        <h2 class="toy-subtitle">¡Cumple 3 Años al Estilo Toy Story!</h2>
-
-        <div class="info-box">
-            <h3>📅 ¿CUÁNDO ES?</h3>
-            <p>Sábado, 4 de Julio de 2026</p>
+    <section id="woody-desert" class="parallax-section">
+        <div class="photo-frame" id="ivana-photo">
+            <img src="https://via.placeholder.com/200x250?text=Foto+Ivana" alt="Ivana Cumpleañera">
         </div>
 
-        <div class="info-box">
-            <h3>⏰ ¿A QUÉ HORA?</h3>
-            <p>A partir de las 3:00 PM</p>
-        </div>
+        <h2 style="text-shadow: 2px 2px 5px rgba(0,0,0,0.5); margin-bottom: 25px; text-align: center;">¡TIENES UNA MISIÓN EN LA FIESTA!</h2>
 
-        <div class="info-box">
-            <h3>📍 ¿DÓNDE ES?</h3>
-            <p>Salón "El Castillo"</p>
-        </div>
-
-        <button class="btn-rsvp" onclick="sendRSVP(event)">
-            🚀 CONFIRMAR ASISTENCIA
-        </button>
-
-        <div class="thanks-message" id="thanks-box">
-            💚 ¡Gracias por confirmar! Te estamos redirigiendo a WhatsApp...
-        </div>
-    </div>
+        <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
+            🤠 CONFIRMAR ASISTENCIA
+        </a>
+    </section>
 
     <script>
-        const music = document.getElementById('bg-music');
-        const musicBtn = document.getElementById('music-btn');
-        const musicStatus = document.getElementById('music-status');
-        let hasInteracted = false;
+        window.addEventListener('scroll', () => {
+            // Guardamos el valor actual del scroll vertical
+            const scrollValue = window.scrollY;
 
-        function toggleMusic() {
-            hasInteracted = true;
-            if (music.paused) {
-                music.play().then(() => {
-                    musicStatus.innerText = '🔊';
-                    musicBtn.style.background = '#e41a22';
-                }).catch(err => console.log(err));
-            } else {
-                music.pause();
-                musicStatus.innerText = '🔈';
-                musicBtn.style.background = '#1c355e';
-            }
-        }
+            // 1. Efecto Parallax en la Sección Espacial (Mover elementos del DOM a ritmos diferentes)
+            const alien1 = document.getElementById('alien1');
+            const alien2 = document.getElementById('alien2');
+            const spaceText = document.getElementById('space-text');
 
-        function startAudioOnInteraction() {
-            if (!hasInteracted) {
-                music.play().then(() => {
-                    musicStatus.innerText = '🔊';
-                    musicBtn.style.background = '#e41a22';
-                    hasInteracted = true;
-                }).catch(() => {});
-            }
-        }
-
-        // --- ENVIAR MENSAJE DIRECTO ---
-        function sendRSVP(event) {
-            event.stopPropagation();
-
-            // Tu número telefónico configurado
-            const myPhoneNumber = "525585473097"; 
-
-            // Mensaje automático personalizado para Ivana
-            const message = `¡Hola! 👋 Confirmo mi asistencia al cumpleaños de Ivana 🎉. ¡Ahí nos vemos para la aventura! 🚀`;
-
-            document.getElementById('thanks-box').style.display = 'block';
-
-            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${encodeURIComponent(message)}`;
+            // El texto espacial sube un poco más lento que el scroll natural
+            spaceText.style.transform = `translateY(${scrollValue * 0.4}px)`;
             
-            setTimeout(() => {
-                window.open(whatsappUrl, '_blank');
-            }, 800);
-        }
+            // Los elementos flotantes se desplazan hacia arriba de forma exagerada dando profundidad
+            alien1.style.transform = `translateY(${-scrollValue * 0.6}px) rotate(${scrollValue * 0.2}deg)`;
+            alien2.style.transform = `translateY(${-scrollValue * 0.3}px) rotate(${-scrollValue * 0.1}deg)`;
+
+            // 2. Efecto Parallax para la Foto en el desierto (Aparece flotando sutilmente)
+            const ivanaPhoto = document.getElementById('ivana-photo');
+            // Calculamos su movimiento relativo al final del scroll
+            if(scrollValue > window.innerHeight * 1.2) {
+                let desertScroll = scrollValue - (window.innerHeight * 1.2);
+                ivanaPhoto.style.transform = `translateY(${-desertScroll * 0.15}px)`;
+            }
+        });
     </script>
 
 </body>
