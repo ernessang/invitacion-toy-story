@@ -41,6 +41,7 @@
             height: 40px;
             border-radius: 20px;
             animation: moveClouds linear infinite;
+            left: -150px; /* Inician fuera de la pantalla a la izquierda */
         }
 
         .cloud::before, .cloud::after {
@@ -53,10 +54,18 @@
         .cloud::before { width: 50px; height: 50px; top: -25px; left: 15px; }
         .cloud::after { width: 70px; height: 70px; top: -45px; left: 40px; }
 
-        .c1 { top: 10%; left: -150px; transform: scale(0.8); animation-duration: 22s; }
-        .c2 { top: 25%; left: -150px; transform: scale(1.1); animation-duration: 32s; animation-delay: 4s; }
-        .c3 { top: 60%; left: -150px; transform: scale(0.7); animation-duration: 26s; animation-delay: 8s; }
-        .c4 { top: 80%; left: -150px; transform: scale(0.9); animation-duration: 28s; animation-delay: 2s; }
+        /* --- CONFIGURACIÓN DE LAS 8 NUBES BALANCEADAS --- */
+        /* Grupo Superior (Más altas y lejanas) */
+        .c1 { top: 8%; transform: scale(0.7); animation-duration: 25s; animation-delay: 0s; }
+        .c2 { top: 18%; transform: scale(0.9); animation-duration: 32s; animation-delay: 4s; }
+        .c3 { top: 28%; transform: scale(0.6); animation-duration: 20s; animation-delay: 10s; }
+        .c4 { top: 12%; transform: scale(0.8); animation-duration: 28s; animation-delay: 15s; }
+
+        /* Grupo Inferior / Medio (Más bajas y un poco más grandes) */
+        .c5 { top: 45%; transform: scale(1.0); animation-duration: 35s; animation-delay: 2s; }
+        .c6 { top: 62%; transform: scale(0.75); animation-duration: 24s; animation-delay: 8s; }
+        .c7 { top: 78%; transform: scale(0.9); animation-duration: 30s; animation-delay: 14s; }
+        .c8 { top: 85%; transform: scale(0.65); animation-duration: 22s; animation-delay: 19s; }
 
         @keyframes moveClouds {
             0% { left: -150px; }
@@ -157,6 +166,10 @@
         <div class="cloud c2"></div>
         <div class="cloud c3"></div>
         <div class="cloud c4"></div>
+        <div class="cloud c5"></div>
+        <div class="cloud c6"></div>
+        <div class="cloud c7"></div>
+        <div class="cloud c8"></div>
     </div>
 
     <div class="invitation-card">
