@@ -82,7 +82,7 @@
 
         .juguete-flotante {
             position: absolute;
-            max-height: 28vh;
+            max-height: 25vh;
             object-fit: contain;
             filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
             z-index: 5;
@@ -113,12 +113,6 @@
             overflow: hidden;
         }
 
-        .real-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         .btn-rsvp {
             display: inline-block;
             background: #fde100;
@@ -136,7 +130,7 @@
         @media (max-width: 900px) {
             .juguete-flotante {
                 position: relative;
-                max-height: 16vh;
+                max-height: 14vh;
                 display: inline-block;
                 margin: 15px 5px 0 5px;
                 left: auto !important; right: auto !important;
@@ -151,7 +145,7 @@
 </head>
 <body>
 
-    <!-- ESCENA 1: LOGO (FUNCIONANDO) -->
+    <!-- ESCENA 1: LOGO -->
     <div class="seccion">
         <div class="efecto">
             <div class="nube" style="top: 15%; animation-delay: 0s;"></div>
@@ -166,8 +160,8 @@
         <div class="efecto">
             <div class="nube" style="top: 25%; animation-delay: -3s;"></div>
         </div>
+        <!-- Usamos el cactus funcional a la izquierda -->
         <img src="assets/cactus.png" class="juguete-flotante izquierda-arriba" alt="Cactus">
-        <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
         
         <div class="contenedor-texto">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
@@ -181,8 +175,8 @@
             <div class="estrella" style="top: 30%; left: 80%; animation-delay: 0.5s;"></div>
             <div class="estrella" style="top: 75%; left: 25%; animation-delay: 1s;"></div>
         </div>
-        <img src="assets/buzz-running2.png" class="juguete-flotante derecha-arriba" alt="Buzz">
-        <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 14vh;" alt="Pelota Pixar">
+        <!-- Volteamos el cactus funcional a la derecha para equilibrar el diseño del desierto -->
+        <img src="assets/cactus.png" class="juguete-flotante derecha-arriba" style="transform: scaleX(-1);" alt="Cactus">
         
         <div class="contenedor-texto">
             <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
@@ -191,7 +185,8 @@
 
     <!-- ESCENA 4: EL LUGAR -->
     <div class="seccion">
-        <img src="assets/bullseye.png" class="juguete-flotante izquierda-abajo" alt="Tiro al Blanco">
+        <!-- Colocamos el cactus abajo a la izquierda -->
+        <img src="assets/cactus.png" class="juguete-flotante izquierda-abajo" alt="Cactus">
         
         <div class="contenedor-texto">
             <p class="story-text">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
@@ -201,11 +196,10 @@
 
     <!-- ESCENA 5: LA CUMPLEAÑERA Y EL BOTÓN -->
     <div class="seccion">
-        <img src="assets/hamm.png" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
-        
         <div class="contenedor-texto">
             <div class="photo-frame">
-                <img src="assets/ivana.jpg" class="real-photo" alt="Ivana">
+                <!-- Usamos el cactus temporalmente en el cuadro para verificar si rompe la sección -->
+                <img src="assets/cactus.png" style="width: 100%; height: 100%; object-fit: contain; background: #222;" alt="Cactus Temporal">
             </div>
             <p class="story-text" style="font-size: 1.6rem; margin-bottom: 15px;">¿TE UNES A LA AVENTURA?</p>
             <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
