@@ -122,18 +122,60 @@
             font-weight: 600;
         }
 
+        /* ----- SECCIÓN FORMULARIO INTERACTIVO ----- */
+        .rsvp-form {
+            background: #fff8d4;
+            border: 4px solid #1c355e;
+            border-radius: 20px;
+            padding: 20px 15px;
+            margin-top: 20px;
+        }
+
+        .rsvp-form h3 {
+            color: #1c355e;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #1c355e;
+            margin-bottom: 5px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #1c355e;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: sans-serif;
+            color: #333;
+        }
+
         .btn-rsvp {
-            display: inline-block;
+            display: block;
+            width: 100%;
             background: #fde100;
             color: #1c355e;
             border: 4px solid #e41a22;
-            padding: 12px 25px;
+            padding: 12px 20px;
             font-size: 1.2rem;
             border-radius: 50px;
             text-decoration: none;
             margin-top: 15px;
             box-shadow: 0 5px 0 #bc1319;
             transition: all 0.1s ease;
+            cursor: pointer;
+            text-align: center;
         }
 
         .btn-rsvp:active {
@@ -157,16 +199,9 @@
             cursor: pointer;
             z-index: 10;
             box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
-            transition: transform 0.2s ease;
         }
 
-        .music-control:active {
-            transform: scale(0.9);
-        }
-
-        .music-icon {
-            font-size: 1.8rem;
-        }
+        .music-icon { font-size: 1.8rem; }
 
         @keyframes popIn {
             0% { transform: scale(0); opacity: 0; }
@@ -214,9 +249,29 @@
             <p>Salón de Fiestas "La Caja de Juguetes"<br><span style="font-size: 0.9rem; color: #666;">Av. Principal #123, Ciudad de México</span></p>
         </div>
 
-        <a href="https://wa.me/52XXXXXXXXXX?text=¡Hola!+Confirmo+mi+asistencia+al+cumpleaños+de+Majo" target="_blank" class="btn-rsvp">
-            🚀 CONFIRMAR ASISTENCIA
-        </a>
+        <div class="rsvp-form" onclick="event.stopPropagation();">
+            <h3>🚀 CONFIRMA TU ASISTENCIA</h3>
+            
+            <div class="input-group">
+                <label for="guest-name">Nombre de la Familia / Invitado:</label>
+                <input type="text" id="guest-name" placeholder="Ej. Familia Sangabriel">
+            </div>
+
+            <div class="input-group">
+                <label for="pass-count">¿Cuántos pases necesitan?</label>
+                <select id="pass-count">
+                    <option value="1">1 Pase</option>
+                    <option value="2" selected>2 Pases</option>
+                    <option value="3">3 Pases</option>
+                    <option value="4">4 Pases</option>
+                    <option value="5">5 Pases</option>
+                </select>
+            </div>
+
+            <button class="btn-rsvp" onclick="sendRSVP()">
+                ¡CONFIRMAR POR WHATSAPP!
+            </button>
+        </div>
     </div>
 
     <script>
@@ -225,32 +280,50 @@
         const musicStatus = document.getElementById('music-status');
         let hasInteracted = false;
 
-        // Función para encender/apagar manualmente desde el botón
         function toggleMusic() {
-            hasInteracted = true; // El usuario ya interactuó
+            hasInteracted = true;
             if (music.paused) {
                 music.play().then(() => {
                     musicStatus.innerText = '🔊';
-                    musicBtn.style.background = '#e41a22'; // Rojo cuando suena
-                }).catch(err => console.log("Error al reproducir:", err));
+                    musicBtn.style.background = '#e41a22';
+                }).catch(err => console.log(err));
             } else {
                 music.pause();
                 musicStatus.innerText = '🔈';
-                musicBtn.style.background = '#1c355e'; // Azul cuando está en silencio
+                musicBtn.style.background = '#1c355e';
             }
         }
 
-        // Intenta arrancar la música automáticamente en cuanto toquen cualquier otra parte de la tarjeta
         function startAudioOnInteraction() {
             if (!hasInteracted) {
                 music.play().then(() => {
                     musicStatus.innerText = '🔊';
                     musicBtn.style.background = '#e41a22';
                     hasInteracted = true;
-                }).catch(() => {
-                    // Si el navegador bloquea el play silencioso, no pasa nada, el botón sigue disponible
-                });
+                }).catch(() => {});
             }
+        }
+
+        // --- LÓGICA DE ENVÍO DE WHATSAPP ---
+        function sendRSVP() {
+            // Reemplaza este número por TU WhatsApp real (incluyendo el código de país, sin espacios ni +)
+            // Ejemplo para México: 52 + tus 10 dígitos -> 525512345678
+            const myPhoneNumber = "525512345678"; 
+
+            const name = document.getElementById('guest-name').value.trim();
+            const pases = document.getElementById('pass-count').value;
+
+            if (name === "") {
+                alert("Por favor, escribe tu nombre para confirmar la asistencia ✨");
+                return;
+            }
+
+            // Crear el mensaje formateado para la app de WhatsApp
+            const message = `¡Hola! Confirmo mi asistencia al cumpleaños de Majo 🎉.%0A👤 Nombre: ${encodeURIComponent(name)}%0A🎟️ Pases solicitados: ${pases}%0A¡Nos vemos allá para la aventura! 🚀`;
+
+            // Abrir API de WhatsApp universal (funciona en PC y Celulares)
+            const whatsappUrl = `https://wa.me/${myPhoneNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
         }
     </script>
 
