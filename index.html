@@ -18,49 +18,88 @@
             overflow-x: hidden;
         }
 
-        /* Bloques de sección que ocupan toda la pantalla */
+        /* --- EFECTOS VISUALES NATIVOS --- */
+        .efecto {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        /* Nubes flotando (Escena 1 y 2) */
+        .nube {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            width: 90px; height: 30px;
+            border-radius: 20px;
+            animation: moverNube 25s linear infinite;
+        }
+        .nube::before {
+            content: ''; position: absolute; background: rgba(255, 255, 255, 0.5);
+            width: 45px; height: 45px; top: -20px; left: 15px; border-radius: 50%;
+        }
+        @keyframes moverNube {
+            0% { left: -120px; }
+            100% { left: 100vw; }
+        }
+
+        /* Estrellas brillando (Escena 3) */
+        .estrella {
+            position: absolute;
+            background: #fff;
+            width: 3px; height: 3px;
+            border-radius: 50%;
+            animation: brillar 2s infinite ease-in-out;
+        }
+        @keyframes brillar {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.3); background: #00ffcc; }
+        }
+
+        /* Bloques de la invitación */
         .seccion {
             min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-items: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             position: relative;
         }
 
-        /* Caja de texto del centro */
         .contenedor-texto {
             max-width: 420px;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 35px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
             text-align: center;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
         }
 
-        /* --- ESTILOS PARA QUE LOS JUGUETES FLOTEN A LOS LADOS --- */
+        /* Juguetes fijos abajo del texto en celular, flotantes en compu */
         .juguete-flotante {
             position: absolute;
             max-height: 32vh;
             object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
             z-index: 5;
         }
 
-        /* Posiciones fijas en los extremos de la pantalla */
-        .izquierda-arriba  { left: 5%; top: 10%; }
-        .izquierda-abajo   { left: 5%; bottom: 10%; }
-        .derecha-arriba    { right: 5%; top: 10%; }
-        .derecha-abajo     { right: 5%; bottom: 10%; }
+        .izquierda-arriba  { left: 6%; top: 12%; }
+        .izquierda-abajo   { left: 6%; bottom: 12%; }
+        .derecha-arriba    { right: 6%; top: 12%; }
+        .derecha-abajo     { right: 6%; bottom: 12%; }
 
         .story-text {
             font-size: 2.2rem;
             line-height: 1.3;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
         }
 
         .highlight-blue { color: #fde100; }
@@ -72,7 +111,7 @@
             background: #eee;
             border: 8px solid #fff;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             margin: 20px auto;
             overflow: hidden;
         }
@@ -97,22 +136,19 @@
             margin-top: 15px;
         }
 
-        /* Adaptación perfecta para celulares */
-        @media (max-width: 768px) {
+        /* Se adapta automáticamente a pantallas de celulares */
+        @media (max-width: 900px) {
             .juguete-flotante {
                 position: relative;
-                max-height: 20vh;
+                max-height: 18vh;
                 display: inline-block;
-                margin: 10px 5px;
-                left: auto !important;
-                right: auto !important;
-                top: auto !important;
-                bottom: auto !important;
+                margin: 15px 5px 0 5px;
+                left: auto !important; right: auto !important;
+                top: auto !important; bottom: auto !important;
             }
             .seccion {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+                min-height: auto;
+                padding: 40px 15px;
             }
         }
     </style>
@@ -120,56 +156,62 @@
 <body>
 
     <div class="seccion">
-        <div style="text-align: center;">
-            <img src="assets/logo.png" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));">
-            <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 2px;">PRESENTA</h2>
+        <div class="efecto">
+            <div class="nube" style="top: 15%; animation-delay: 0s;"></div>
+            <div class="nube" style="top: 40%; animation-delay: -7s;"></div>
         </div>
+        <img src="assets/logo.png" alt="Toy Story Logo" style="width: 100%; max-width: 320px; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));">
+        <h2 style="font-size: 1.8rem; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); letter-spacing: 2px;">PRESENTA</h2>
     </div>
 
     <div class="seccion">
-        <img src="assets/wody.png" class="juguete-flotante izquierda-arriba" alt="Woody">
-        <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 12vh;" alt="Pelota Pixar">
-        <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
-
+        <div class="efecto">
+            <div class="nube" style="top: 20%; animation-delay: -3s;"></div>
+        </div>
         <div class="contenedor-texto">
             <p class="story-text">La princesa <span class="highlight-blue">IVANA</span> cumplirá <span style="color: #e41a22;">3 Años</span> 👑</p>
+            <img src="assets/wody.png" class="juguete-flotante izquierda-arriba" alt="Woody">
+            <img src="assets/pelota.png" class="juguete-flotante izquierda-abajo" style="max-height: 12vh;" alt="Pelota Pixar">
+            <img src="assets/cara-de-papa.png" class="juguete-flotante derecha-abajo" alt="Cara de Papa">
         </div>
     </div>
 
     <div class="seccion">
-        <img src="assets/buzz-running.png" class="juguete-flotante derecha-arriba" alt="Buzz">
-        <img src="assets/control.png" class="juguete-flotante derecha-abajo" style="max-height: 12vh;" alt="Control">
-        <img src="assets/tresmarcianos.png" class="juguete-flotante izquierda-abajo" alt="Aliens">
-
+        <div class="efecto">
+            <div class="estrella" style="top: 15%; left: 15%;"></div>
+            <div class="estrella" style="top: 25%; left: 80%; animation-delay: 0.5s;"></div>
+            <div class="estrella" style="top: 70%; left: 30%; animation-delay: 1s;"></div>
+            <div class="estrella" style="top: 50%; left: 85%; animation-delay: 1.5s;"></div>
+        </div>
         <div class="contenedor-texto">
             <p class="story-text">¡Y te esperamos para el despegue este <span class="highlight-green">Sábado 4 de Julio</span>! 🚀</p>
+            <img src="assets/buzz-running.png" class="juguete-flotante derecha-arriba" alt="Buzz">
+            <img src="assets/control.png" class="juguete-flotante derecha-abajo" style="max-height: 12vh;" alt="Control">
+            <img src="assets/tresmarcianos.png" class="juguete-flotante izquierda-abajo" alt="Aliens">
         </div>
     </div>
 
     <div class="seccion">
-        <img src="assets/bullseye.png" class="juguete-flotante izquierda-arriba" alt="Tiro al Blanco">
-        <img src="assets/cactus.png" class="juguete-flotante izquierda-abajo" style="max-height: 16vh;" alt="Cactus">
-        <img src="assets/jessie.png" class="juguete-flotante derecha-abajo" alt="Jessie">
-
         <div class="contenedor-texto">
-            <p class="story-text" style="text-shadow: none;">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
-            <p style="font-size: 1.4rem; margin: 15px 0; color: #fff;">A partir de las <strong>3:00 PM</strong> ⏰</p>
+            <p class="story-text">La cita es en el Salón <br><span style="color: #e41a22; font-size: 2.5rem;">"El Castillo"</span></p>
+            <p style="font-size: 1.4rem; margin-top: 15px; font-weight: bold;">A partir de las 3:00 PM ⏰</p>
+            <img src="assets/bullseye.png" class="juguete-flotante izquierda-arriba" alt="Tiro al Blanco">
+            <img src="assets/cactus.png" class="juguete-flotante izquierda-abajo" style="max-height: 16vh;" alt="Cactus">
+            <img src="assets/jessie.png" class="juguete-flotante derecha-abajo" alt="Jessie">
         </div>
     </div>
 
     <div class="seccion">
-        <img src="assets/rex.png" class="juguete-flotante izquierda-abajo" style="transform: scaleX(-1);" alt="Rex">
-        <img src="assets/hamm.png" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
-
         <div class="contenedor-texto">
             <div class="photo-frame">
                 <img src="assets/ivana.jpg" class="real-photo" alt="Ivana">
             </div>
             <p class="story-text" style="font-size: 1.6rem; margin-bottom: 15px;">¿TE UNES A LA AVENTURA?</p>
-            
             <a href="https://wa.me/525585473097?text=%C2%A1Hola!%20%F0%9F%91%8B%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Ivana%20%F0%9F%8E%89.%20%C2%A1Ah%C3%AD%20nos%20vemos%20para%20la%20aventura!%20%F0%9F%9A%80" target="_blank" class="btn-rsvp">
                 🚀 CONFIRMAR ASISTENCIA
             </a>
+            <img src="assets/rex.png" class="juguete-flotante izquierda-abajo" style="transform: scaleX(-1);" alt="Rex">
+            <img src="assets/hamm.png" class="juguete-flotante derecha-abajo" style="max-height: 20vh;" alt="Hamm">
         </div>
     </div>
 
