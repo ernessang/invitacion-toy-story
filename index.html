@@ -41,7 +41,7 @@
             height: 40px;
             border-radius: 20px;
             animation: moveClouds linear infinite;
-            left: -150px; /* Inician fuera de la pantalla a la izquierda */
+            left: -150px;
         }
 
         .cloud::before, .cloud::after {
@@ -54,14 +54,10 @@
         .cloud::before { width: 50px; height: 50px; top: -25px; left: 15px; }
         .cloud::after { width: 70px; height: 70px; top: -45px; left: 40px; }
 
-        /* --- CONFIGURACIÓN DE LAS 8 NUBES BALANCEADAS --- */
-        /* Grupo Superior (Más altas y lejanas) */
         .c1 { top: 8%; transform: scale(0.7); animation-duration: 25s; animation-delay: 0s; }
         .c2 { top: 18%; transform: scale(0.9); animation-duration: 32s; animation-delay: 4s; }
         .c3 { top: 28%; transform: scale(0.6); animation-duration: 20s; animation-delay: 10s; }
         .c4 { top: 12%; transform: scale(0.8); animation-duration: 28s; animation-delay: 15s; }
-
-        /* Grupo Inferior / Medio (Más bajas y un poco más grandes) */
         .c5 { top: 45%; transform: scale(1.0); animation-duration: 35s; animation-delay: 2s; }
         .c6 { top: 62%; transform: scale(0.75); animation-duration: 24s; animation-delay: 8s; }
         .c7 { top: 78%; transform: scale(0.9); animation-duration: 30s; animation-delay: 14s; }
@@ -72,7 +68,7 @@
             100% { left: 100vw; }
         }
 
-        /* ----- CONTENEDOR PRINCIPAL (ESTILO CAJA DE JUGUETES) ----- */
+        /* ----- CONTENEDOR PRINCIPAL ----- */
         .invitation-card {
             background: #ffffff;
             border: 8px solid #e41a22;
@@ -87,16 +83,10 @@
             animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        /* ----- LOGO / TITULO TOY STORY ----- */
         .toy-title {
             font-size: 3rem;
             color: #fde100;
-            text-shadow: 
-                -3px -3px 0 #e41a22,  
-                 3px -3px 0 #e41a22,
-                -3px  3px 0 #e41a22,
-                 3px  3px 0 #e41a22,
-                 5px  5px 0 #1c355e;
+            text-shadow: -3px -3px 0 #e41a22, 3px -3px 0 #e41a22, -3px 3px 0 #e41a22, 3px 3px 0 #e41a22, 5px 5px 0 #1c355e;
             letter-spacing: 1px;
             margin-bottom: 5px;
             text-transform: uppercase;
@@ -110,7 +100,6 @@
             font-weight: bold;
         }
 
-        /* ----- CUADROS DE INFORMACIÓN ----- */
         .info-box {
             background: #f4f9fd;
             border: 3px dashed #4ba3e3;
@@ -133,7 +122,6 @@
             font-weight: 600;
         }
 
-        /* ----- BOTÓN DE CONFIRMACIÓN ----- */
         .btn-rsvp {
             display: inline-block;
             background: #fde100;
@@ -151,6 +139,33 @@
         .btn-rsvp:active {
             transform: translateY(4px);
             box-shadow: 0 1px 0 #bc1319;
+        }
+
+        /* ----- BOTÓN FLOTANTE DE MÚSICA ----- */
+        .music-control {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #1c355e;
+            border: 4px solid #fde100;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease;
+        }
+
+        .music-control:active {
+            transform: scale(0.9);
+        }
+
+        .music-icon {
+            font-size: 1.8rem;
         }
 
         @keyframes popIn {
@@ -172,7 +187,15 @@
         <div class="cloud c8"></div>
     </div>
 
-    <div class="invitation-card">
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="music-control" id="music-btn" onclick="toggleMusic()">
+        <span class="music-icon" id="music-status">🔈</span>
+    </div>
+
+    <div class="invitation-card" onclick="startAudioOnInteraction()">
         <h1 class="toy-title">¡MAJO!</h1>
         <h2 class="toy-subtitle">¡Cumple 3 Años al Estilo Toy Story!</h2>
 
@@ -195,6 +218,41 @@
             🚀 CONFIRMAR ASISTENCIA
         </a>
     </div>
+
+    <script>
+        const music = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        const musicStatus = document.getElementById('music-status');
+        let hasInteracted = false;
+
+        // Función para encender/apagar manualmente desde el botón
+        function toggleMusic() {
+            hasInteracted = true; // El usuario ya interactuó
+            if (music.paused) {
+                music.play().then(() => {
+                    musicStatus.innerText = '🔊';
+                    musicBtn.style.background = '#e41a22'; // Rojo cuando suena
+                }).catch(err => console.log("Error al reproducir:", err));
+            } else {
+                music.pause();
+                musicStatus.innerText = '🔈';
+                musicBtn.style.background = '#1c355e'; // Azul cuando está en silencio
+            }
+        }
+
+        // Intenta arrancar la música automáticamente en cuanto toquen cualquier otra parte de la tarjeta
+        function startAudioOnInteraction() {
+            if (!hasInteracted) {
+                music.play().then(() => {
+                    musicStatus.innerText = '🔊';
+                    musicBtn.style.background = '#e41a22';
+                    hasInteracted = true;
+                }).catch(() => {
+                    // Si el navegador bloquea el play silencioso, no pasa nada, el botón sigue disponible
+                });
+            }
+        }
+    </script>
 
 </body>
 </html>
